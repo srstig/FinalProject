@@ -1,4 +1,4 @@
-package com.ray.zawadimart.data
+package com.ray.resqroad.data
 
 import android.content.Context
 import androidx.room.Database

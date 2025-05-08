@@ -1,7 +1,7 @@
 package com.ray.resqroad.repository
 
 import android.content.Context
-import com.ray.zawadimart.data.ProductDatabase
+import com.ray.resqroad.data.ProductDatabase
 import com.ray.resqroad.model.Product
 
 class ProductRepository(context: Context) {

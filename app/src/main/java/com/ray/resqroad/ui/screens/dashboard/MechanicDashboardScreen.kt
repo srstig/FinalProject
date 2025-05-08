@@ -46,6 +46,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.ray.resqroad.R
 import com.ray.resqroad.navigation.ROUT_HOME
+import com.ray.resqroad.navigation.ROUT_PRODUCT_LIST
 import com.ray.resqroad.navigation.ROUT_REQUEST
 import com.ray.resqroad.navigation.ROUT_USERPROFILE
 import com.ray.resqroad.ui.theme.mainBlue
@@ -160,7 +161,7 @@ fun MechanicDashboardScreen(navController: NavController){
                 modifier = Modifier
                     .width(150.dp)
                     .height(180.dp)
-                    .clickable {navController.navigate(ROUT_REQUEST)},
+                    .clickable {navController.navigate(ROUT_PRODUCT_LIST)},
                 colors = CardDefaults.cardColors(newOrange)
 
             ){
@@ -278,13 +279,13 @@ fun MechanicDashboardScreen(navController: NavController){
                     verticalArrangement = Arrangement.Center
                 ){
                     Image(
-                        painter = painterResource(R.drawable.settings),
+                        painter = painterResource(R.drawable.info),
                         contentDescription = "",
                         modifier = Modifier.size(100.dp)
                     )
                     Spacer(modifier = Modifier.height(10.dp))
 
-                    Text(text = "Settings", fontSize = 25.sp, color = Color.White, modifier = Modifier.padding(start = 5.dp, end = (5.dp)))
+                    Text(text = "Services", fontSize = 25.sp, color = Color.White, modifier = Modifier.padding(start = 5.dp, end = (5.dp)))
 
                 }
 

@@ -1,6 +1,7 @@
 package com.ray.resqroad.ui.screens.request
 
 
+
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -76,11 +77,13 @@ import com.ray.resqroad.ui.theme.txtCol
 import com.ray.resqroad.ui.theme.whiteBackgr
 import com.ray.resqroad.model.ServiceCard
 import com.ray.resqroad.navigation.ROUT_ADD_PRODUCT
+import com.ray.resqroad.navigation.ROUT_MECHANICDASHBOARD
+import com.ray.resqroad.navigation.ROUT_MECHANICPROFILE
 import com.ray.resqroad.navigation.ROUT_REQUESTDETAILS
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RequestScreen(navController: NavController){
+fun ServiceScreen(navController: NavController){
 
 
     var selectedService by remember { mutableStateOf<String?>(null) }
@@ -124,7 +127,7 @@ fun RequestScreen(navController: NavController){
                     label = { Text("Home") },
                     selected = selectedIndex == 0,
                     onClick = { selectedIndex = 0
-                        navController.navigate(ROUT_USERDASHBOARD)
+                        navController.navigate(ROUT_MECHANICDASHBOARD)
                     }
                 )
 
@@ -133,7 +136,7 @@ fun RequestScreen(navController: NavController){
                     label = { Text("History") },
                     selected = selectedIndex == 2,
                     onClick = { selectedIndex = 2
-                        navController.navigate(ROUT_USERHISTORY)
+                        navController.navigate(ROUT_HOME)
                     }
                 )
 
@@ -142,7 +145,7 @@ fun RequestScreen(navController: NavController){
                     label = { Text("Profile") },
                     selected = selectedIndex == 1,
                     onClick = { selectedIndex = 1
-                        navController.navigate(ROUT_USERPROFILE)
+                        navController.navigate(ROUT_MECHANICPROFILE)
                     }
                 )
 
@@ -150,15 +153,7 @@ fun RequestScreen(navController: NavController){
             }
         },
 
-        //FloatingActionButton
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = { /* Add action */ },
-                containerColor = newOrange
-            ) {
-                Icon(Icons.Default.Add, contentDescription = "Add")
-            }
-        },
+
 
         //Content
         content = { paddingValues ->
@@ -177,7 +172,7 @@ fun RequestScreen(navController: NavController){
                     verticalArrangement = Arrangement.Center
                 ){
 
-                    Text(text = "Get Help With Any of These Issues", fontSize = 35.sp, color = whiteBackgr)
+                    Text(text = "Help Clients with These Issues", fontSize = 35.sp, color = whiteBackgr)
 
                     Spacer(modifier = Modifier.height(8.dp))
 
@@ -238,14 +233,14 @@ fun RequestScreen(navController: NavController){
                         Button(
                             onClick = {
 
-                                    navController.navigate(ROUT_ADD_PRODUCT)
+                                navController.navigate(ROUT_HOME)
 
                             },
 
                             modifier = Modifier.fillMaxSize() .padding(start = 20.dp, end = 20.dp),
                             colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
                         ) {
-                            Text("Request Help Now", color = Color.White, fontSize = 20.sp,fontFamily = FontFamily.SansSerif)
+                            Text("View Available Requests", color = Color.White, fontSize = 20.sp,fontFamily = FontFamily.SansSerif)
                         }
                     }
 
@@ -286,7 +281,7 @@ fun RequestScreen(navController: NavController){
 
 @Preview(showBackground = true)
 @Composable
-fun RequestScreenPreview(){
+fun ServiceScreenPreview(){
 
-    RequestScreen(rememberNavController())
+    ServiceScreen(rememberNavController())
 }

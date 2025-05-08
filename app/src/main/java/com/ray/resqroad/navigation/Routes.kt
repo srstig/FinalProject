@@ -12,6 +12,7 @@ const val ROUT_USERPROFILE = "userprofle"
 
 const val ROUT_MECHANICREGISTRATION = "mechanicregistration"
 const val ROUT_MECHANICDASHBOARD = "mechanicdashboard"
+const val ROUT_MECHANICSERVICE = "mechanicservice"
 const val ROUT_MECHANICRESPONSE = "mechanicresponse"
 const val ROUT_MECHANICPROFILE = "mechanicprofle"
 const val ROUT_MECHANICHISTORY = "mechanichistory"

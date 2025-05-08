@@ -31,16 +31,19 @@ import com.ray.resqroad.navigation.ROUT_ADD_PRODUCT
 import com.ray.resqroad.navigation.ROUT_PRODUCT_LIST
 import com.ray.resqroad.navigation.ROUT_USERDASHBOARD
 import com.ray.resqroad.ui.theme.mainBlue
+import com.ray.resqroad.ui.theme.txtCol
 import com.ray.resqroad.ui.theme.whiteBackgr
 import com.ray.resqroad.viewmodel.ProductViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddProductScreen(navController: NavController, viewModel: ProductViewModel) {
-    var name by remember { mutableStateOf("") }
-    var price by remember { mutableStateOf("") }
+    var carType by remember { mutableStateOf("") }
+    var numberPlate by remember { mutableStateOf("") }
+    var description by remember { mutableStateOf("") }
     var phone by remember { mutableStateOf("") }
     var imageUri by remember { mutableStateOf<Uri?>(null) }
+
     var showMenu by remember { mutableStateOf(false) }
 
     val context = LocalContext.current
@@ -56,7 +59,7 @@ fun AddProductScreen(navController: NavController, viewModel: ProductViewModel) 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Add Product", fontSize = 20.sp, fontWeight = FontWeight.Bold) },
+                title = { Text("Request Details", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = whiteBackgr) },
                 colors = TopAppBarDefaults.mediumTopAppBarColors(mainBlue),
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
@@ -100,26 +103,23 @@ fun AddProductScreen(navController: NavController, viewModel: ProductViewModel) 
                     .padding(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                // Product Name
+                // CarType
                 OutlinedTextField(
-                    value = name,
-                    onValueChange = { name = it },
-                    label = { Text("Product Name") },
-                    leadingIcon = { Icon(painter = painterResource(R.drawable.towtruck), contentDescription = "Name") },
+                    value = carType,
+                    onValueChange = { carType = it },
+                    label = { Text("Car Type") },
                     modifier = Modifier.fillMaxWidth()
                 )
 
                 Spacer(modifier = Modifier.height(10.dp))
 
-                // Product Price
+                // Number Plate
                 OutlinedTextField(
-                    value = price,
-                    onValueChange = { price = it },
-                    label = { Text("Product Price") },
-                    leadingIcon = { Icon(painter = painterResource(R.drawable.towtruck), contentDescription = "Price") },
+                    value = numberPlate,
+                    onValueChange = { numberPlate = it },
+                    label = { Text("Number Plate") },
                     modifier = Modifier.fillMaxWidth()
                 )
-
 
 
                 Spacer(modifier = Modifier.height(10.dp))
@@ -129,7 +129,17 @@ fun AddProductScreen(navController: NavController, viewModel: ProductViewModel) 
                     value = phone,
                     onValueChange = { phone = it },
                     label = { Text("Phone Number") },
-                    leadingIcon = { Icon(painter = painterResource(R.drawable.towtruck), contentDescription = "Price") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+
+                // Description
+                OutlinedTextField(
+                    value = description,
+                    onValueChange = { description = it },
+                    label = { Text("Description") },
                     modifier = Modifier.fillMaxWidth()
                 )
 
@@ -153,8 +163,8 @@ fun AddProductScreen(navController: NavController, viewModel: ProductViewModel) 
                         )
                     } else {
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            Icon(painter = painterResource(R.drawable.towtruck), contentDescription = "Pick Image")
-                            Text("Tap to pick image", color = Color.DarkGray)
+                            Icon(painter = painterResource(R.drawable.image), contentDescription = "Pick Image")
+                            Text("Tap to pick image", color = txtCol, fontSize = 20.sp)
                         }
                     }
                 }
@@ -180,17 +190,14 @@ fun AddProductScreen(navController: NavController, viewModel: ProductViewModel) 
                     Button(
                         onClick =
                             {
-                                val priceValue = price.toDoubleOrNull()
-                                if (priceValue != null) {
-                                    imageUri?.toString()?.let { viewModel.addProduct(name, priceValue, phone,it) }
-                                    navController.navigate(ROUT_PRODUCT_LIST)
-                                }
+                                imageUri?.toString()?.let { viewModel.addProduct(carType,numberPlate,description,phone,it) }
+                                navController.navigate(ROUT_PRODUCT_LIST)
                             },
                         modifier = Modifier.fillMaxSize().padding(start = 20.dp, end = 20.dp),
                         colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
                     ) {
                         Text(
-                            "Confirm Request",
+                            " Request Assistance",
                             color = Color.White,
                             fontSize = 20.sp,
                             fontFamily = FontFamily.SansSerif

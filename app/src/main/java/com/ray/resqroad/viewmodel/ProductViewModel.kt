@@ -6,7 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.ray.resqroad.model.Product
-import com.ray.zawadimart.data.ProductDatabase
+import com.ray.resqroad.data.ProductDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
@@ -20,12 +20,13 @@ class ProductViewModel(app: Application) : AndroidViewModel(app) {
 
     val allProducts: LiveData<List<Product>> = productDao.getAllProducts()
 
-    fun addProduct(name: String, price: Double, phone: String, imageUri: String) {
+    fun addProduct(carType: String, numberPlate: String, description:String , phone: String, imageUri: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val savedImagePath = saveImageToInternalStorage(Uri.parse(imageUri))
             val newProduct = Product(
-                name = name,
-                price = price,
+                carType = carType,
+               numberPlate  = numberPlate,
+                description = description,
                 phone = phone,
                 imagePath = savedImagePath // use saved image path
             )

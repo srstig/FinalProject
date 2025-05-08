@@ -62,7 +62,7 @@ fun ProductListScreen(navController: NavController, viewModel: ProductViewModel)
     var searchQuery by remember { mutableStateOf("") }
 
     val filteredProducts = productList.filter {
-        it.name.contains(searchQuery, ignoreCase = true)
+        it.carType.contains(searchQuery, ignoreCase = true)
     }
 
     Scaffold(
@@ -191,13 +191,13 @@ fun ProductItem(navController: NavController, product: Product, viewModel: Produ
                     .padding(start = 12.dp, bottom = 60.dp)
             ) {
                 Text(
-                    text = product.name,
+                    text = product.carType,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White
                 )
                 Text(
-                    text = "Price: Ksh${product.price}",
+                    text = "Phone: ${product.phone}",
                     fontSize = 16.sp,
                     color = Color.White
                 )
@@ -218,7 +218,7 @@ fun ProductItem(navController: NavController, product: Product, viewModel: Produ
                         onClick = {
                             val smsIntent = Intent(Intent.ACTION_SENDTO)
                             smsIntent.data = "smsto:${product.phone}".toUri()
-                            smsIntent.putExtra("sms_body", "Hello Seller,...?")
+                            smsIntent.putExtra("sms_body", "Hello. What seems to be the problem? ")
                             context.startActivity(smsIntent)
                         },
                         shape = RoundedCornerShape(8.dp),
@@ -230,7 +230,7 @@ fun ProductItem(navController: NavController, product: Product, viewModel: Produ
                                 contentDescription = "Message Mechanic"
                             )
                             Spacer(modifier = Modifier.width(3.dp))
-                            Text(text = "Message Mechanic", color = whiteBackgr)
+                            Text(text = "Message Client", color = whiteBackgr)
                         }
                     }
 
@@ -296,14 +296,14 @@ fun generateProductPDF(context: Context, product: Product) {
 
     paint.textSize = 12f
     paint.isFakeBoldText = false
-    canvas.drawText("Name: ${product.name}", 50f, 230f, paint)
-    canvas.drawText("Price: Ksh${product.price}", 50f, 250f, paint)
-    canvas.drawText("Seller Phone: ${product.phone}", 50f, 270f, paint)
+    canvas.drawText("Car Type: ${product.carType}", 50f, 230f, paint)
+    canvas.drawText("Number Plate: ${product.numberPlate}", 50f, 250f, paint)
+    canvas.drawText("Phone: ${product.phone}", 50f, 270f, paint)
 
     pdfDocument.finishPage(page)
 
     // Save PDF using MediaStore (Scoped Storage)
-    val fileName = "${product.name}_Details.pdf"
+    val fileName = "${product.carType}_Details.pdf"
     val contentValues = ContentValues().apply {
         put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
         put(MediaStore.MediaColumns.MIME_TYPE, "application/pdf")

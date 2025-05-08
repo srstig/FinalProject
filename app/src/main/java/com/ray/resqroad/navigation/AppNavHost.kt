@@ -25,6 +25,7 @@ import com.ray.resqroad.ui.screens.products.AddProductScreen
 import com.ray.resqroad.ui.screens.products.EditProductScreen
 import com.ray.resqroad.ui.screens.products.ProductListScreen
 import com.ray.resqroad.ui.screens.request.RequestScreen
+import com.ray.resqroad.ui.screens.request.ServiceScreen
 import com.ray.resqroad.ui.screens.splash.SplashScreen
 import com.ray.resqroad.viewmodel.AuthViewModel
 import com.ray.resqroad.viewmodel.ProductViewModel
@@ -74,6 +75,10 @@ fun AppNavHost(
 
         composable(ROUT_MECHANICDASHBOARD) {
             MechanicDashboardScreen (navController)
+        }
+
+        composable(ROUT_MECHANICSERVICE) {
+            ServiceScreen (navController)
         }
 
 

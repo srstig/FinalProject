@@ -36,8 +36,10 @@ fun EditProductScreen(productId: Int?, navController: NavController, viewModel: 
     val product = remember(productList) { productList.find { it.id == productId } }
 
     // Track state variables only when product is found
-    var name by remember { mutableStateOf(product?.name ?: "") }
-    var price by  remember { mutableStateOf(product?.price?.toString() ?: "") }
+    var carType by remember { mutableStateOf(product?.carType ?: "") }
+    var numberPlate by  remember { mutableStateOf(product?.numberPlate?.toString() ?: "") }
+    var description by  remember { mutableStateOf(product?.description?.toString() ?: "") }
+    var phone by  remember { mutableStateOf(product?.phone?.toString() ?: "") }
     var imagePath by remember { mutableStateOf(product?.imagePath ?: "") }
     var showMenu by remember { mutableStateOf(false) }
 
@@ -95,17 +97,35 @@ fun EditProductScreen(productId: Int?, navController: NavController, viewModel: 
         ) {
             if (product != null) {
                 OutlinedTextField(
-                    value = name,
-                    onValueChange = { name = it },
-                    label = { Text("Product Name") },
+                    value = carType,
+                    onValueChange = { carType = it },
+                    label = { Text("Car Type") },
                     modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(8.dp))
 
                 OutlinedTextField(
-                    value = price,
-                    onValueChange = { price = it },
-                    label = { Text("Product Price") },
+                    value = numberPlate,
+                    onValueChange = { numberPlate = it },
+                    label = { Text("Number Plate") },
+                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+
+                OutlinedTextField(
+                    value = description,
+                    onValueChange = { description = it },
+                    label = { Text("Description") },
+                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+
+                OutlinedTextField(
+                    value = phone,
+                    onValueChange = { phone = it },
+                    label = { Text("Phone Number") },
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -132,20 +152,20 @@ fun EditProductScreen(productId: Int?, navController: NavController, viewModel: 
 
                 Button(
                     onClick = {
-                        val updatedPrice = price.toDoubleOrNull()
-                        if (updatedPrice != null) {
-                            viewModel.updateProduct(product.copy(name = name, price = updatedPrice, imagePath = imagePath))
-                            Toast.makeText(context, "Product Updated!", Toast.LENGTH_SHORT).show()
+                        val updatedPhoneNumber = phone.toString()
+                        if (updatedPhoneNumber != null) {
+                            viewModel.updateProduct(product.copy(carType = carType, numberPlate = numberPlate, description = description, phone = updatedPhoneNumber, imagePath = imagePath))
+                            Toast.makeText(context, "Details Updated!", Toast.LENGTH_SHORT).show()
                             navController.popBackStack()
                         } else {
-                            Toast.makeText(context, "Invalid price entered!", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Invalid Phone number entered!", Toast.LENGTH_SHORT).show()
                         }
                     },
                     modifier = Modifier.fillMaxWidth()
                         .padding(start = 40.dp, end = 40.dp),
                     colors = ButtonDefaults.buttonColors(Color.Black)
                 ) {
-                    Text("Update Product")
+                    Text("Update Details")
                 }
             } else {
                 Text(text = "Product not found", color = MaterialTheme.colorScheme.error)
