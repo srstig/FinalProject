@@ -35,3 +35,16 @@ const val ROUT_EDIT_PRODUCT = "edit_product/{productId}"
 
 // ✅ Helper function for navigation
 fun editProductRoute(productId: Int) = "edit_product/$productId"
+
+
+//Products
+
+const val ROUT_MECH_ADD_PRODUCT = "mechadd_product"
+const val ROUT_MECHPRODUCT_LIST = "mechproduct_list"
+const val ROUT_MECH_EDIT_PRODUCT = "medit_product/{productId}"
+
+// ✅ Helper function for navigation
+fun meditProductRoute(productId: Int) = "medit_product/$productId"
+
+
+

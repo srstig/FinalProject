@@ -21,6 +21,9 @@ import com.ray.resqroad.ui.screens.auth.RegisterScreen
 import com.ray.resqroad.ui.screens.dashboard.MechanicDashboardScreen
 import com.ray.resqroad.ui.screens.dashboard.UserDashboardScreen
 import com.ray.resqroad.ui.screens.home.HomeScreen
+import com.ray.resqroad.ui.screens.mproducts.MAddProductScreen
+import com.ray.resqroad.ui.screens.mproducts.MEditProductScreen
+import com.ray.resqroad.ui.screens.mproducts.MProductListScreen
 import com.ray.resqroad.ui.screens.products.AddProductScreen
 import com.ray.resqroad.ui.screens.products.EditProductScreen
 import com.ray.resqroad.ui.screens.products.ProductListScreen
@@ -28,6 +31,7 @@ import com.ray.resqroad.ui.screens.request.RequestScreen
 import com.ray.resqroad.ui.screens.request.ServiceScreen
 import com.ray.resqroad.ui.screens.splash.SplashScreen
 import com.ray.resqroad.viewmodel.AuthViewModel
+import com.ray.resqroad.viewmodel.MProductViewModel
 import com.ray.resqroad.viewmodel.ProductViewModel
 
 
@@ -36,8 +40,9 @@ import com.ray.resqroad.viewmodel.ProductViewModel
 fun AppNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    startDestination: String = ROUT_SPLASH,
+    startDestination: String = ROUT_MECH_ADD_PRODUCT,
     productViewModel: ProductViewModel = viewModel(),
+    mproductViewModel: MProductViewModel = viewModel(),
 
 
     ) {
@@ -121,6 +126,26 @@ fun AppNavHost(
             val productId = backStackEntry.arguments?.getInt("productId")
             if (productId != null) {
                 EditProductScreen(productId, navController, productViewModel)
+            }
+        }
+
+
+        // Mechanics
+        composable(ROUT_MECH_ADD_PRODUCT) {
+            MAddProductScreen(navController, mproductViewModel)
+        }
+
+        composable(ROUT_MECHPRODUCT_LIST) {
+            MProductListScreen(navController, mproductViewModel)
+        }
+
+        composable(
+            route = ROUT_MECH_EDIT_PRODUCT,
+            arguments = listOf(navArgument("productId") { type = NavType.IntType })
+        ) { backStackEntry ->
+            val productId = backStackEntry.arguments?.getInt("productId")
+            if (productId != null) {
+                MEditProductScreen(productId, navController, mproductViewModel)
             }
         }
 
