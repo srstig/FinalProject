@@ -46,6 +46,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.ray.resqroad.R
 import com.ray.resqroad.navigation.ROUT_HOME
+import com.ray.resqroad.navigation.ROUT_MECHANICSERVICE
 import com.ray.resqroad.navigation.ROUT_PRODUCT_LIST
 import com.ray.resqroad.navigation.ROUT_REQUEST
 import com.ray.resqroad.navigation.ROUT_USERPROFILE
@@ -83,14 +84,9 @@ fun MechanicDashboardScreen(navController: NavController){
                     },
                     actions = {
                         IconButton(onClick = {
-                            navController.navigate(ROUT_USERPROFILE)
-                        }) {
-                            Icon(imageVector = Icons.Default.Person, contentDescription = "")
-                        }
-                        IconButton(onClick = {
                             navController.navigate(ROUT_HOME)
                         }) {
-                            Icon(imageVector = Icons.Default.ArrowForward, contentDescription = "")
+                            Icon(imageVector = Icons.Default.Person, contentDescription = "")
                         }
 
                     }
@@ -204,13 +200,13 @@ fun MechanicDashboardScreen(navController: NavController){
                     verticalArrangement = Arrangement.Center
                 ){
                     Image(
-                        painter = painterResource(R.drawable.clipboard),
+                        painter = painterResource(R.drawable.profile),
                         contentDescription = "",
                         modifier = Modifier.size(100.dp)
                     )
                     Spacer(modifier = Modifier.height(10.dp))
 
-                    Text(text = "Service History", fontSize = 25.sp, color = txtCol, modifier = Modifier.padding(start = 5.dp, end = (5.dp)))
+                    Text(text = "Edit Profile", fontSize = 25.sp, color = txtCol, modifier = Modifier.padding(start = 5.dp, end = (5.dp)))
 
                 }
 
@@ -269,7 +265,7 @@ fun MechanicDashboardScreen(navController: NavController){
                 modifier = Modifier
                     .width(150.dp)
                     .height(180.dp)
-                    .clickable {navController.navigate(ROUT_HOME)},
+                    .clickable {navController.navigate(ROUT_MECHANICSERVICE)},
                 colors = CardDefaults.cardColors(txtCol)
 
             ){
