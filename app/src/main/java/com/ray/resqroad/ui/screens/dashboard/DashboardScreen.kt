@@ -80,22 +80,8 @@ fun UserDashboardScreen(navController: NavController){
                             Icon(imageVector = Icons.Default.Menu, contentDescription = "")
                         }
                     },
-                    actions = {
-                        IconButton(onClick = {
-                            navController.navigate(ROUT_USERPROFILE)
-                        }) {
-                            Icon(imageVector = Icons.Default.Person, contentDescription = "")
-                        }
-                        IconButton(onClick = {
-                            navController.navigate(ROUT_HOME)
-                        }) {
-                            Icon(imageVector = Icons.Default.ArrowForward, contentDescription = "")
-                        }
-
-                    }
 
 
-                    ,
                     colors = TopAppBarDefaults.topAppBarColors(
                         containerColor = mainBlue,
                         titleContentColor = Color.White,
@@ -209,7 +195,7 @@ fun UserDashboardScreen(navController: NavController){
                     )
                     Spacer(modifier = Modifier.height(10.dp))
 
-                    Text(text = "Service History", fontSize = 25.sp, color = txtCol, modifier = Modifier.padding(start = 5.dp, end = (5.dp)))
+                    Text(text = "Request History", fontSize = 25.sp, color = txtCol, modifier = Modifier.padding(start = 5.dp, end = (5.dp)))
 
                 }
 

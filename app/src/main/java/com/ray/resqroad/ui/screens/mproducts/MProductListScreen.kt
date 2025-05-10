@@ -40,10 +40,14 @@ import coil.compose.rememberAsyncImagePainter
 import com.ray.resqroad.R
 import com.ray.resqroad.viewmodel.MProductViewModel
 import com.ray.resqroad.model.MProduct
+import com.ray.resqroad.navigation.ROUT_HOME
+import com.ray.resqroad.navigation.ROUT_MECHANICDASHBOARD
 import com.ray.resqroad.navigation.ROUT_MECH_ADD_PRODUCT
 import com.ray.resqroad.navigation.ROUT_MECH_EDIT_PRODUCT
 import com.ray.resqroad.navigation.ROUT_MECHPRODUCT_LIST
 import com.ray.resqroad.navigation.meditProductRoute
+import com.ray.resqroad.ui.theme.mainBlue
+import com.ray.resqroad.ui.theme.whiteBackgr
 import java.io.IOException
 import java.io.OutputStream
 
@@ -63,11 +67,11 @@ fun MProductListScreen(navController: NavController, viewModel : MProductViewMod
         topBar = {
             Column {
                 TopAppBar(
-                    title = { Text("Products", fontSize = 20.sp) },
-                    colors = TopAppBarDefaults.mediumTopAppBarColors(Color.LightGray),
+                    title = { Text("Products", fontSize = 20.sp,fontWeight = FontWeight.Bold, color = whiteBackgr) },
+                    colors = TopAppBarDefaults.mediumTopAppBarColors(mainBlue),
                     actions = {
                         IconButton(onClick = { showMenu = true }) {
-                            Icon(imageVector = Icons.Default.MoreVert, contentDescription = "Menu")
+                            Icon(imageVector = Icons.Default.MoreVert, contentDescription = "Menu", tint = whiteBackgr)
                         }
                         DropdownMenu(
                             expanded = showMenu,
@@ -99,7 +103,7 @@ fun MProductListScreen(navController: NavController, viewModel : MProductViewMod
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 12.dp, vertical = 8.dp),
-                    placeholder = { Text("Search products...") },
+                    placeholder = { Text("Search...") },
                     singleLine = true,
                     leadingIcon = {
                         Icon(
@@ -191,7 +195,12 @@ fun ProductItem(navController: NavController, MProduct: MProduct, viewModel: MPr
                     color = Color.White
                 )
                 Text(
-                    text = "Price: Ksh${MProduct.price}",
+                    text = "Service: ${MProduct.service}",
+                    fontSize = 16.sp,
+                    color = Color.White
+                )
+                Text(
+                    text = "Locaton: ${MProduct.location}",
                     fontSize = 16.sp,
                     color = Color.White
                 )
@@ -212,7 +221,7 @@ fun ProductItem(navController: NavController, MProduct: MProduct, viewModel: MPr
                         onClick = {
                             val smsIntent = Intent(Intent.ACTION_SENDTO)
                             smsIntent.data = "smsto:${MProduct.phone}".toUri()
-                            smsIntent.putExtra("sms_body", "Hello Seller,...?")
+                            smsIntent.putExtra("sms_body", "Hello")
                             context.startActivity(smsIntent)
                         },
                         shape = RoundedCornerShape(8.dp),
@@ -220,10 +229,11 @@ fun ProductItem(navController: NavController, MProduct: MProduct, viewModel: MPr
                         Row {
                             Icon(
                                 imageVector = Icons.Default.Send,
-                                contentDescription = "Message Seller"
+                                contentDescription = "Message Seller",
+                                tint = whiteBackgr
                             )
                             Spacer(modifier = Modifier.width(3.dp))
-                            Text(text = "Message Seller")
+                            Text(text = "Message", color = whiteBackgr)
                         }
                     }
 
@@ -259,6 +269,8 @@ fun ProductItem(navController: NavController, MProduct: MProduct, viewModel: MPr
                             painter = painterResource(R.drawable.pdfdownload),
                             contentDescription = "",
                             tint = Color.White
+
+
                         )
                     }
                 }
@@ -299,8 +311,7 @@ fun generateProductPDF(context: Context, MProduct: MProduct) {
     paint.textSize = 12f
     paint.isFakeBoldText = false
     canvas.drawText("Name: ${MProduct.name}", 50f, 230f, paint)
-    canvas.drawText("Price: Ksh${MProduct.price}", 50f, 250f, paint)
-    canvas.drawText("Seller Phone: ${MProduct.phone}", 50f, 270f, paint)
+    canvas.drawText("Phone: ${MProduct.phone}", 50f, 270f, paint)
 
     pdfDocument.finishPage(page)
 
@@ -338,20 +349,19 @@ fun generateProductPDF(context: Context, MProduct: MProduct) {
 @Composable
 fun BottomNavigationBar1(navController: NavController) {
     NavigationBar(
-        containerColor = Color(0xFFA2B9A2),
-        contentColor = Color.White
+        containerColor = whiteBackgr
     ) {
         NavigationBarItem(
             selected = false,
-            onClick = { navController.navigate(ROUT_MECHPRODUCT_LIST) },
+            onClick = { navController.navigate(ROUT_MECHANICDASHBOARD) },
             icon = { Icon(Icons.Default.Home, contentDescription = "Product List") },
             label = { Text("Home") }
         )
         NavigationBarItem(
             selected = false,
-            onClick = { navController.navigate(ROUT_MECH_ADD_PRODUCT) },
-            icon = { Icon(Icons.Default.AddCircle, contentDescription = "Add Product") },
-            label = { Text("Add") }
+            onClick = { navController.navigate(ROUT_HOME) },
+            icon = { Icon(Icons.Default.DateRange, contentDescription = "Add Product") },
+            label = { Text("History") }
         )
     }
 }

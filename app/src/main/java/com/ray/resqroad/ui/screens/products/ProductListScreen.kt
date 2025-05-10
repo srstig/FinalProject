@@ -105,7 +105,7 @@ fun ProductListScreen(navController: NavController, viewModel: ProductViewModel)
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 12.dp, vertical = 8.dp),
-                    placeholder = { Text("Search") },
+                    placeholder = { Text("Search...") },
                     singleLine = true,
                     leadingIcon = {
                         Icon(
@@ -256,7 +256,6 @@ fun ProductItem(navController: NavController, product: Product, viewModel: Produ
                         Icon(
                             painter = painterResource(R.drawable.pdfdownload),
                             contentDescription = "",
-                            tint = Color.White
                         )
                     }
                 }

@@ -5,10 +5,13 @@ import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.*
@@ -19,11 +22,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
+import com.ray.resqroad.navigation.ROUT_HOME
+import com.ray.resqroad.navigation.ROUT_MECHANICDASHBOARD
 import com.ray.resqroad.navigation.ROUT_MECH_ADD_PRODUCT
 import com.ray.resqroad.navigation.ROUT_MECHPRODUCT_LIST
+import com.ray.resqroad.ui.theme.mainBlue
+import com.ray.resqroad.ui.theme.whiteBackgr
 import com.ray.resqroad.viewmodel.MProductViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -37,7 +48,9 @@ fun MEditProductScreen(productId: Int?, navController: NavController, viewModel 
 
     // Track state variables only when product is found
     var name by remember { mutableStateOf(mproduct?.name ?: "") }
-    var price by  remember { mutableStateOf(mproduct?.price?.toString() ?: "") }
+    var service by  remember { mutableStateOf(mproduct?.service?.toString() ?: "") }
+    var location by  remember { mutableStateOf(mproduct?.location?.toString() ?: "") }
+    var phone by  remember { mutableStateOf(mproduct?.phone?.toString() ?: "") }
     var imagePath by remember { mutableStateOf(mproduct?.imagePath ?: "") }
 
     var showMenu by remember { mutableStateOf(false) }
@@ -53,15 +66,17 @@ fun MEditProductScreen(productId: Int?, navController: NavController, viewModel 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Edit Product") },
+                title = { Text("Confirm Details",fontSize = 20.sp, fontWeight = FontWeight.Bold, color = whiteBackgr) },
+                colors = TopAppBarDefaults.mediumTopAppBarColors(mainBlue),
+
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.Default.ArrowBack, contentDescription = "Back",tint = whiteBackgr)
                     }
                 },
                 actions = {
                     IconButton(onClick = { showMenu = true }) {
-                        Icon(Icons.Default.MoreVert, contentDescription = "Menu")
+                        Icon(Icons.Default.MoreVert, contentDescription = "Menu",tint = whiteBackgr)
                     }
                     DropdownMenu(
                         expanded = showMenu,
@@ -98,15 +113,31 @@ fun MEditProductScreen(productId: Int?, navController: NavController, viewModel 
                 OutlinedTextField(
                     value = name,
                     onValueChange = { name = it },
-                    label = { Text("Product Name") },
+                    label = { Text("Full Name") },
                     modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(8.dp))
 
                 OutlinedTextField(
-                    value = price,
-                    onValueChange = { price = it },
-                    label = { Text("Product Price") },
+                    value = service,
+                    onValueChange = { service = it },
+                    label = { Text("Service Offered") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+
+                OutlinedTextField(
+                    value = location,
+                    onValueChange = { location = it },
+                    label = { Text("Location") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+
+                OutlinedTextField(
+                    value = phone,
+                    onValueChange = { phone = it },
+                    label = { Text("Phone Number") },
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -121,35 +152,78 @@ fun MEditProductScreen(productId: Int?, navController: NavController, viewModel 
                         .padding(8.dp)
                 )
 
-                Button(
-                    onClick = { imagePicker.launch("image/*") },
-                    modifier = Modifier.fillMaxWidth()
-                        .padding(start = 40.dp, end = 40.dp),
-                    colors = ButtonDefaults.buttonColors(Color.LightGray)
-                ) {
-                    Text("Change Image")
-                }
-                Spacer(modifier = Modifier.height(16.dp))
+                Box(
+                    modifier = Modifier
+                        .padding(start = 20.dp, end = 20.dp)
+                        .fillMaxWidth()
+                        .height(50.dp)
+                        .background(
+                            brush = Brush.horizontalGradient(
+                                colors = listOf(Color(0xFFFF4500), Color(0xFFFFA500))
+                            ),
+                            shape = MaterialTheme.shapes.medium
+                        ),
+                    contentAlignment = Alignment.Center
+                )
+                {
 
                 Button(
+                    onClick = { imagePicker.launch("image/*") },
+                    modifier = Modifier.fillMaxSize().padding(start = 20.dp, end = 20.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
+                )
+                {
+                    Text("Change Image",
+                        fontSize = 20.sp,
+                        fontFamily = FontFamily.SansSerif,
+                        color = Color.White
+                    )
+                }
+                }
+
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+
+                Box(
+                    modifier = Modifier
+                        .padding(start = 20.dp, end = 20.dp)
+                        .fillMaxWidth()
+                        .height(50.dp)
+                        .background(
+                            brush = Brush.horizontalGradient(
+                                colors = listOf(Color(0xFFFF4500), Color(0xFFFFA500))
+                            ),
+                            shape = MaterialTheme.shapes.medium
+                        ),
+                    contentAlignment = Alignment.Center
+                )
+                {
+                Button(
                     onClick = {
-                        val updatedPrice = price.toDoubleOrNull()
-                        if (updatedPrice != null) {
-                            viewModel.updateMechProduct(mproduct.copy(name = name, price = updatedPrice, imagePath = imagePath))
-                            Toast.makeText(context, "Product Updated!", Toast.LENGTH_SHORT).show()
+                        val updatedPhone = phone.toString()
+                        if (updatedPhone != null) {
+                            viewModel.updateMechProduct(mproduct.copy(name = name, service = service,location = location ,phone = updatedPhone, imagePath = imagePath))
+                            Toast.makeText(context, "Details Submitted!", Toast.LENGTH_SHORT).show()
                             navController.popBackStack()
                         } else {
-                            Toast.makeText(context, "Invalid price entered!", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Invalid Phone Number entered!", Toast.LENGTH_SHORT).show()
                         }
                     },
                     modifier = Modifier.fillMaxWidth()
                         .padding(start = 40.dp, end = 40.dp),
-                    colors = ButtonDefaults.buttonColors(Color.Black)
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
                 ) {
-                    Text("Update Product")
+                    Text("Submit Details",
+                        fontSize = 20.sp,
+                        fontFamily = FontFamily.SansSerif,
+                        color = Color.White
+                    )
                 }
+                }
+
             } else {
-                Text(text = "Product not found", color = MaterialTheme.colorScheme.error)
+                Text(text = "Details not found", color = MaterialTheme.colorScheme.error)
                 Button(onClick = { navController.popBackStack() }) {
                     Text("Go Back")
                 }
@@ -162,20 +236,19 @@ fun MEditProductScreen(productId: Int?, navController: NavController, viewModel 
 @Composable
 fun BottomNavigationBar2(navController: NavController) {
     NavigationBar(
-        containerColor = Color(0xFF6F6A72),
-        contentColor = Color.White
+        containerColor = whiteBackgr
     ) {
         NavigationBarItem(
             selected = false,
-            onClick = { navController.navigate(ROUT_MECHPRODUCT_LIST) },
-            icon = { Icon(Icons.Default.Menu, contentDescription = "Product List") },
-            label = { Text("Products") }
+            onClick = { navController.navigate(ROUT_MECHANICDASHBOARD) },
+            icon = { Icon(Icons.Default.Home, contentDescription = "") },
+            label = { Text("Home") }
         )
         NavigationBarItem(
             selected = false,
-            onClick = { navController.navigate(ROUT_MECH_ADD_PRODUCT) },
-            icon = { Icon(Icons.Default.Menu, contentDescription = "Add Product") },
-            label = { Text("Add") }
+            onClick = { navController.navigate(ROUT_HOME) },
+            icon = { Icon(Icons.Default.DateRange, contentDescription = "") },
+            label = { Text("History") }
         )
     }
 }

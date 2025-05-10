@@ -8,7 +8,9 @@ import androidx.room.PrimaryKey
 data class MProduct(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val name: String,
-    val price: Double,
+    val service: String,
+    val location: String,
     val phone: String,
     val imagePath: String
+
 )

@@ -108,7 +108,6 @@ fun EditProductScreen(productId: Int?, navController: NavController, viewModel: 
                     value = numberPlate,
                     onValueChange = { numberPlate = it },
                     label = { Text("Number Plate") },
-                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
                     modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(8.dp))
@@ -117,7 +116,6 @@ fun EditProductScreen(productId: Int?, navController: NavController, viewModel: 
                     value = description,
                     onValueChange = { description = it },
                     label = { Text("Description") },
-                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
                     modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(8.dp))

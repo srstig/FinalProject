@@ -20,12 +20,13 @@ class MProductViewModel(app: Application) : AndroidViewModel(app) {
 
     val allMechProducts: LiveData<List<MProduct>> = mproductDao.getAllMechProducts()
 
-    fun addMechProduct(name: String, price: Double, phone: String, imageUri: String) {
+    fun addMechProduct(name: String, service: String, location : String, phone: String, imageUri: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val savedImagePath = saveImageToInternalStorage(Uri.parse(imageUri))
             val newMProduct = MProduct(
                 name = name,
-                price = price,
+                service = service,
+                location = location,
                 phone = phone,
                 imagePath = savedImagePath // use saved image path
             )

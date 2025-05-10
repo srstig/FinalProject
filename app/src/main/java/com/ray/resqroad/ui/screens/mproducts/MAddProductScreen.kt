@@ -9,17 +9,21 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -37,9 +41,11 @@ import com.ray.resqroad.viewmodel.MProductViewModel
 @Composable
 fun MAddProductScreen(navController: NavController, viewModel : MProductViewModel) {
     var name by remember { mutableStateOf("") }
-    var price by remember { mutableStateOf("") }
+    var service by remember { mutableStateOf("") }
+    var location by remember { mutableStateOf("") }
     var phone by remember { mutableStateOf("") }
     var imageUri by remember { mutableStateOf<Uri?>(null) }
+
     var showMenu by remember { mutableStateOf(false) }
 
     val context = LocalContext.current
@@ -103,7 +109,7 @@ fun MAddProductScreen(navController: NavController, viewModel : MProductViewMode
                 OutlinedTextField(
                     value = name,
                     onValueChange = { name = it },
-                    label = { Text("Product Name") },
+                    label = { Text("Full Name") },
                     modifier = Modifier.fillMaxWidth()
                 )
 
@@ -111,13 +117,22 @@ fun MAddProductScreen(navController: NavController, viewModel : MProductViewMode
 
                 // Product Price
                 OutlinedTextField(
-                    value = price,
-                    onValueChange = { price = it },
-                    label = { Text("Product Price") },
+                    value = service,
+                    onValueChange = { service = it },
+                    label = { Text("Service Offered") },
                     modifier = Modifier.fillMaxWidth()
                 )
 
 
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                OutlinedTextField(
+                    value = location,
+                    onValueChange = { location = it },
+                    label = { Text("Location") },
+                    modifier = Modifier.fillMaxWidth()
+                )
 
                 Spacer(modifier = Modifier.height(10.dp))
 
@@ -126,8 +141,10 @@ fun MAddProductScreen(navController: NavController, viewModel : MProductViewMode
                     value = phone,
                     onValueChange = { phone = it },
                     label = { Text("Phone Number") },
-                    modifier = Modifier.fillMaxWidth()
-                )
+                    modifier = Modifier.fillMaxWidth(),
+                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+
+                    )
 
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -158,20 +175,40 @@ fun MAddProductScreen(navController: NavController, viewModel : MProductViewMode
                 Spacer(modifier = Modifier.height(20.dp))
 
                 // Add Product Button
+
+                Box(
+                    modifier = Modifier
+                        .padding(start = 20.dp, end = 20.dp)
+                        .fillMaxWidth()
+                        .height(50.dp)
+                        .background(
+                            brush = Brush.horizontalGradient(
+                                colors = listOf(Color(0xFFFF4500), Color(0xFFFFA500))
+                            ),
+                            shape = MaterialTheme.shapes.medium
+                        ),
+                    contentAlignment = Alignment.Center
+                ){
+
                 Button(
                     onClick = {
-                        val priceValue = price.toDoubleOrNull()
-                        if (priceValue != null) {
-                            imageUri?.toString()?.let { viewModel.addMechProduct(name, priceValue, phone,it) }
+                            imageUri?.toString()?.let { viewModel.addMechProduct(name,service,location,phone,it) }
                             navController.navigate(ROUT_MECHPRODUCT_LIST)
-                        }
-                    },
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(8.dp),
-                    colors = ButtonDefaults.buttonColors(Color.LightGray)
+                              },
+                    modifier = Modifier.fillMaxSize().padding(start = 20.dp, end = 20.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
+
                 ) {
-                    Text("Add Product", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                    Text("Apply",
+                        fontSize = 20.sp,
+                        fontFamily = FontFamily.SansSerif,
+                        color = Color.White
+                    )
                 }
+
+
+                }
+
             }
         }
     )
@@ -181,8 +218,7 @@ fun MAddProductScreen(navController: NavController, viewModel : MProductViewMode
 @Composable
 fun BottomNavigationBar(navController: NavController) {
     NavigationBar(
-        containerColor = Color(0xFF6F6A72),
-        contentColor = Color.White
+        containerColor = whiteBackgr,
     ) {
         NavigationBarItem(
             selected = false,
@@ -192,7 +228,7 @@ fun BottomNavigationBar(navController: NavController) {
         )
         NavigationBarItem(
             selected = false,
-            onClick = { navController.navigate(ROUT_MECH_ADD_PRODUCT) },
+            onClick = { navController.navigate(ROUT_HOME) },
             icon = { Icon(Icons.Default.DateRange, contentDescription = "") },
             label = { Text("History") }
         )
