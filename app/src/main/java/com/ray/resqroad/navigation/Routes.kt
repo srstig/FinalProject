@@ -4,20 +4,15 @@ const val ROUT_USERDASHBOARD = "userdashboard"
 const val ROUT_SPLASH = "splash"
 const val ROUT_HOME = "home"
 const val ROUT_REQUEST = "request"
-const val ROUT_REQUESTDETAILS = "requestdetails"
-const val ROUT_CHOOSEMECHANIC = "choosemechanic"
-const val ROUT_USERHISTORY = "userhistory"
-const val ROUT_USERPROFILE = "userprofle"
 
 
-const val ROUT_MECHANICREGISTRATION = "mechanicregistration"
 const val ROUT_MECHANICDASHBOARD = "mechanicdashboard"
 const val ROUT_MECHANICSERVICE = "mechanicservice"
-const val ROUT_MECHANICRESPONSE = "mechanicresponse"
-const val ROUT_MECHANICPROFILE = "mechanicprofle"
+
+
+
+const val ROUT_USERHISTORY = "userhistory"
 const val ROUT_MECHANICHISTORY = "mechanichistory"
-
-
 
 
 
@@ -47,4 +42,16 @@ const val ROUT_MECH_EDIT_PRODUCT = "medit_product/{productId}"
 fun meditProductRoute(productId: Int) = "medit_product/$productId"
 
 
+
+//Clone Screens
+const val ROUT_PRODUCT_LIST_CLONE = "product_list_clone"
+const val ROUT_EDIT_PRODUCT_CLONE = "edit_product_clone/{productId}"
+
+const val ROUT_MECHPRODUCT_LIST_CLONE = "mechproduct_list_clone"
+const val ROUT_MECH_EDIT_PRODUCT_CLONE = "medit_product_clone/{productId}"
+
+// ✅ Helper function for navigation
+fun meditProductRouteclone(productId: Int) = "medit_product_clone/$productId"
+
+fun editProductRouteclone(productId: Int) = "edit_product_clone/$productId"
 

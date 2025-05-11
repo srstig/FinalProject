@@ -1,4 +1,4 @@
-package com.ray.resqroad.ui.screens.mproducts
+package com.ray.resqroad.ui.screens.clones
 
 import android.content.ContentValues
 import android.content.Context
@@ -55,7 +55,7 @@ import java.io.OutputStream
 @RequiresApi(Build.VERSION_CODES.Q)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MProductListScreen(navController: NavController,viewModel: MProductViewModel) {
+fun MProductListScreenClone(navController: NavController,viewModel: MProductViewModel) {
     val productList by viewModel.allMechProducts.observeAsState(emptyList())
     var showMenu by remember { mutableStateOf(false) }
     var searchQuery by remember { mutableStateOf("") }
@@ -122,7 +122,7 @@ fun MProductListScreen(navController: NavController,viewModel: MProductViewModel
                 )
             }
         },
-        bottomBar = { BottomNavigationBar1(navController) }
+        bottomBar = { BottomNavigationBar6(navController) }
     ) { paddingValues ->
         Column(
             modifier = Modifier
@@ -241,7 +241,7 @@ fun ProductItem(navController: NavController, MProduct: MProduct, viewModel: MPr
                     // Edit Product
                     IconButton(
                         onClick = {
-                            navController.navigate(meditProductRoute(MProduct.id))
+                            navController.navigate(meditProductRouteclone(MProduct.id))
                         }
                     ) {
                         Icon(
@@ -348,13 +348,13 @@ fun generateProductPDF(context: Context, MProduct: MProduct) {
 
 // Bottom Navigation Bar Component
 @Composable
-fun BottomNavigationBar1(navController: NavController) {
+fun BottomNavigationBar6(navController: NavController) {
     NavigationBar(
         containerColor = whiteBackgr
     ) {
         NavigationBarItem(
             selected = false,
-            onClick = { navController.navigate(ROUT_MECHANICDASHBOARD) },
+            onClick = { navController.navigate(ROUT_HOME) },
             icon = { Icon(Icons.Default.Home, contentDescription = "Product List") },
             label = { Text("Home") }
         )

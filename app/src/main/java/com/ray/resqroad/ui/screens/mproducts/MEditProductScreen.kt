@@ -39,7 +39,7 @@ import com.ray.resqroad.viewmodel.MProductViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MEditProductScreen(productId: Int?, navController: NavController, viewModel : MProductViewModel) {
+fun MEditProductScreen(productId: Int?, navController: NavController, viewModel: MProductViewModel) {
     val context = LocalContext.current
     val mproductList by viewModel.allMechProducts.observeAsState(emptyList())
 

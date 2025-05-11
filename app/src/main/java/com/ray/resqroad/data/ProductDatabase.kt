@@ -6,12 +6,14 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.ray.resqroad.data.ProductDao
 import com.ray.resqroad.data.UserDao
+import com.ray.resqroad.model.MProduct
 import com.ray.resqroad.model.Product
 import com.ray.resqroad.model.User
 
-@Database(entities = [Product::class, User::class], version = 3, exportSchema = false)
+@Database(entities = [Product::class, User::class, MProduct :: class], version = 6, exportSchema = false)
 abstract class ProductDatabase : RoomDatabase() {
     abstract fun productDao(): ProductDao
+    abstract fun mproductDao(): MProductDao
     abstract fun userDao(): UserDao
 
     companion object {

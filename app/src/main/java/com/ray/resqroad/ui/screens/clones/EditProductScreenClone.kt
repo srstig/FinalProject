@@ -1,4 +1,4 @@
-package com.ray.resqroad.ui.screens.products
+package com.ray.resqroad.ui.screens.clones
 
 import android.net.Uri
 import android.widget.Toast
@@ -41,7 +41,7 @@ import com.ray.resqroad.viewmodel.ProductViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EditProductScreen(productId: Int?, navController: NavController, viewModel: ProductViewModel) {
+fun EditProductScreenClone(productId: Int?, navController: NavController, viewModel: ProductViewModel) {
     val context = LocalContext.current
     val productList by viewModel.allProducts.observeAsState(emptyList())
 
@@ -103,7 +103,7 @@ fun EditProductScreen(productId: Int?, navController: NavController, viewModel: 
                 }
             )
         },
-        bottomBar = { BottomNavigationBar2(navController) }
+        bottomBar = { BottomNavigationBar9(navController) }
     ) { paddingValues ->
         Column(
             modifier = Modifier
@@ -247,13 +247,13 @@ fun EditProductScreen(productId: Int?, navController: NavController, viewModel: 
 
 // Bottom Navigation Bar
 @Composable
-fun BottomNavigationBar2(navController: NavController) {
+fun BottomNavigationBar9(navController: NavController) {
     NavigationBar(
         containerColor = whiteBackgr
     ) {
         NavigationBarItem(
             selected = false,
-            onClick = { navController.navigate(ROUT_USERDASHBOARD) },
+            onClick = { navController.navigate(ROUT_HOME) },
             icon = { Icon(Icons.Default.Home, contentDescription = "") },
             label = { Text("Home") }
         )

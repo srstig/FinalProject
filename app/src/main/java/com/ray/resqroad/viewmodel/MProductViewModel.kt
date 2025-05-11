@@ -16,7 +16,7 @@ import java.io.InputStream
 class MProductViewModel(app: Application) : AndroidViewModel(app) {
 
     private val context = app.applicationContext
-    private val mproductDao = MProductDatabase.getDatabase(app).productDao()
+    private val mproductDao = MProductDatabase.getDatabase(app).mproductDao()
 
     val allMechProducts: LiveData<List<MProduct>> = mproductDao.getAllMechProducts()
 

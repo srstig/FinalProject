@@ -47,9 +47,9 @@ import androidx.navigation.compose.rememberNavController
 import com.ray.resqroad.R
 import com.ray.resqroad.navigation.ROUT_HOME
 import com.ray.resqroad.navigation.ROUT_MECHANICSERVICE
+import com.ray.resqroad.navigation.ROUT_MECH_ADD_PRODUCT
 import com.ray.resqroad.navigation.ROUT_PRODUCT_LIST
 import com.ray.resqroad.navigation.ROUT_REQUEST
-import com.ray.resqroad.navigation.ROUT_USERPROFILE
 import com.ray.resqroad.ui.theme.mainBlue
 import com.ray.resqroad.ui.theme.newOrange
 import com.ray.resqroad.ui.theme.trialBlue
@@ -76,23 +76,8 @@ fun MechanicDashboardScreen(navController: NavController){
             ) {
 
                 TopAppBar(
-                    title = { Text(text = "Dashboard Section") },
-                    navigationIcon = {
-                        IconButton(onClick = {}) {
-                            Icon(imageVector = Icons.Default.Menu, contentDescription = "")
-                        }
-                    },
-                    actions = {
-                        IconButton(onClick = {
-                            navController.navigate(ROUT_HOME)
-                        }) {
-                            Icon(imageVector = Icons.Default.Person, contentDescription = "")
-                        }
+                    title = { Text(text = "Mechanic Section") },
 
-                    }
-
-
-                    ,
                     colors = TopAppBarDefaults.topAppBarColors(
                         containerColor = mainBlue,
                         titleContentColor = Color.White,
@@ -190,7 +175,7 @@ fun MechanicDashboardScreen(navController: NavController){
                 modifier = Modifier
                     .width(150.dp)
                     .height(180.dp)
-                    .clickable {navController.navigate(ROUT_HOME)},
+                    .clickable {navController.navigate(ROUT_MECH_ADD_PRODUCT)},
                 colors = CardDefaults.cardColors(whiteBackgr)
 
             ){
@@ -206,7 +191,7 @@ fun MechanicDashboardScreen(navController: NavController){
                     )
                     Spacer(modifier = Modifier.height(10.dp))
 
-                    Text(text = "Edit Profile", fontSize = 25.sp, color = txtCol, modifier = Modifier.padding(start = 5.dp, end = (5.dp)))
+                    Text(text = "Get listed", fontSize = 25.sp, color = txtCol, modifier = Modifier.padding(start = 5.dp, end = (5.dp)))
 
                 }
 

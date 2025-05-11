@@ -18,6 +18,10 @@ import com.ray.resqroad.data.UserDatabase
 import com.ray.resqroad.repository.UserRepository
 import com.ray.resqroad.ui.screens.auth.LoginScreen
 import com.ray.resqroad.ui.screens.auth.RegisterScreen
+import com.ray.resqroad.ui.screens.clones.EditProductScreenClone
+import com.ray.resqroad.ui.screens.clones.MEditProductScreenClone
+import com.ray.resqroad.ui.screens.clones.MProductListScreenClone
+import com.ray.resqroad.ui.screens.clones.ProductListScreenClone
 import com.ray.resqroad.ui.screens.dashboard.MechanicDashboardScreen
 import com.ray.resqroad.ui.screens.dashboard.UserDashboardScreen
 import com.ray.resqroad.ui.screens.home.HomeScreen
@@ -40,7 +44,7 @@ import com.ray.resqroad.viewmodel.ProductViewModel
 fun AppNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    startDestination: String = ROUT_MECH_ADD_PRODUCT,
+    startDestination: String = ROUT_LOGIN,
     productViewModel: ProductViewModel = viewModel(),
     mproductViewModel: MProductViewModel = viewModel(),
 
@@ -70,10 +74,6 @@ fun AppNavHost(
         composable(ROUT_REQUEST) {
             RequestScreen (navController)
         }
-
-
-
-
 
 
 
@@ -148,6 +148,43 @@ fun AppNavHost(
                 MEditProductScreen(productId, navController, mproductViewModel)
             }
         }
+
+
+
+        //Clone Screens for History
+
+        composable(ROUT_MECHPRODUCT_LIST_CLONE) {
+            MProductListScreenClone(navController, mproductViewModel)
+        }
+
+        composable(
+            route = ROUT_MECH_EDIT_PRODUCT_CLONE,
+            arguments = listOf(navArgument("productId") { type = NavType.IntType })
+        ) { backStackEntry ->
+            val productId = backStackEntry.arguments?.getInt("productId")
+            if (productId != null) {
+                MEditProductScreenClone(productId, navController, mproductViewModel)
+            }
+        }
+
+
+
+        composable(ROUT_PRODUCT_LIST_CLONE) {
+            ProductListScreenClone(navController, productViewModel)
+        }
+
+        composable(
+            route = ROUT_EDIT_PRODUCT_CLONE,
+            arguments = listOf(navArgument("productId") { type = NavType.IntType })
+        ) { backStackEntry ->
+            val productId = backStackEntry.arguments?.getInt("productId")
+            if (productId != null) {
+                EditProductScreenClone(productId, navController, productViewModel)
+            }
+        }
+
+
+
 
 
     }

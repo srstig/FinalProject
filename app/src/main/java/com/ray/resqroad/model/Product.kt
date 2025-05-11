@@ -10,6 +10,7 @@ data class Product(
     val carType: String,
     val numberPlate: String,
     val description: String,
+    val location: String,
     val phone: String,
     val imagePath: String
 )

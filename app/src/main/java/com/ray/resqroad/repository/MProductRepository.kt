@@ -5,7 +5,7 @@ import com.ray.resqroad.data.MProductDatabase
 import com.ray.resqroad.model.MProduct
 
 class MProductRepository(context: Context) {
-    private val mproductDao = MProductDatabase.getDatabase(context).productDao()
+    private val mproductDao = MProductDatabase.getDatabase(context).mproductDao()
 
     suspend fun insertProduct(MProduct: MProduct) {
         mproductDao.insertMechProduct(MProduct)

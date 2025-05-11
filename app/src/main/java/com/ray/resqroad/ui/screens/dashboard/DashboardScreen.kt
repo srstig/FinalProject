@@ -46,8 +46,11 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.ray.resqroad.R
 import com.ray.resqroad.navigation.ROUT_HOME
+import com.ray.resqroad.navigation.ROUT_MECHPRODUCT_LIST_CLONE
+import com.ray.resqroad.navigation.ROUT_MECH_EDIT_PRODUCT_CLONE
+import com.ray.resqroad.navigation.ROUT_PRODUCT_LIST
+import com.ray.resqroad.navigation.ROUT_PRODUCT_LIST_CLONE
 import com.ray.resqroad.navigation.ROUT_REQUEST
-import com.ray.resqroad.navigation.ROUT_USERPROFILE
 import com.ray.resqroad.ui.theme.mainBlue
 import com.ray.resqroad.ui.theme.newOrange
 import com.ray.resqroad.ui.theme.trialBlue
@@ -74,20 +77,9 @@ fun UserDashboardScreen(navController: NavController){
             ) {
 
                 TopAppBar(
-                    title = { Text(text = "Dashboard Section") },
-                    navigationIcon = {
-                        IconButton(onClick = {}) {
-                            Icon(imageVector = Icons.Default.Menu, contentDescription = "")
-                        }
-                    },
+                    title = { Text(text = "User Section",fontSize = 20.sp, fontWeight = FontWeight.Bold, color = whiteBackgr) },
 
-
-                    colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = mainBlue,
-                        titleContentColor = Color.White,
-                        navigationIconContentColor = Color.White,
-                        actionIconContentColor = Color.White
-                    )
+                    colors = TopAppBarDefaults.topAppBarColors(containerColor = mainBlue,)
 
                 )
 
@@ -179,7 +171,7 @@ fun UserDashboardScreen(navController: NavController){
                 modifier = Modifier
                     .width(150.dp)
                     .height(180.dp)
-                    .clickable {navController.navigate(ROUT_HOME)},
+                    .clickable {navController.navigate(ROUT_PRODUCT_LIST)},
                 colors = CardDefaults.cardColors(whiteBackgr)
 
             ){

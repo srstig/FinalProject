@@ -69,7 +69,6 @@ import com.ray.resqroad.model.User
 import com.ray.resqroad.navigation.ROUT_HOME
 import com.ray.resqroad.navigation.ROUT_USERDASHBOARD
 import com.ray.resqroad.navigation.ROUT_USERHISTORY
-import com.ray.resqroad.navigation.ROUT_USERPROFILE
 import com.ray.resqroad.ui.theme.mainBlue
 import com.ray.resqroad.ui.theme.newOrange
 import com.ray.resqroad.ui.theme.trialBlue
@@ -78,8 +77,7 @@ import com.ray.resqroad.ui.theme.whiteBackgr
 import com.ray.resqroad.model.ServiceCard
 import com.ray.resqroad.navigation.ROUT_ADD_PRODUCT
 import com.ray.resqroad.navigation.ROUT_MECHANICDASHBOARD
-import com.ray.resqroad.navigation.ROUT_MECHANICPROFILE
-import com.ray.resqroad.navigation.ROUT_REQUESTDETAILS
+import com.ray.resqroad.navigation.ROUT_PRODUCT_LIST
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -140,14 +138,7 @@ fun ServiceScreen(navController: NavController){
                     }
                 )
 
-                NavigationBarItem(
-                    icon = { Icon(Icons.Default.Person, contentDescription = "") },
-                    label = { Text("Profile") },
-                    selected = selectedIndex == 1,
-                    onClick = { selectedIndex = 1
-                        navController.navigate(ROUT_MECHANICPROFILE)
-                    }
-                )
+
 
 
             }
@@ -233,7 +224,7 @@ fun ServiceScreen(navController: NavController){
                         Button(
                             onClick = {
 
-                                navController.navigate(ROUT_HOME)
+                                navController.navigate(ROUT_PRODUCT_LIST)
 
                             },
 

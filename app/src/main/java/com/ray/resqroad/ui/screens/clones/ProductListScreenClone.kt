@@ -1,4 +1,4 @@
-package com.ray.resqroad.ui.screens.mproducts
+package com.ray.resqroad.ui.screens.clones
 
 import android.content.ContentValues
 import android.content.Context
@@ -17,7 +17,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
@@ -38,37 +40,39 @@ import androidx.core.net.toUri
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.ray.resqroad.R
-import com.ray.resqroad.viewmodel.MProductViewModel
-import com.ray.resqroad.model.MProduct
-import com.ray.resqroad.navigation.ROUT_HOME
-import com.ray.resqroad.navigation.ROUT_MECHANICDASHBOARD
-import com.ray.resqroad.navigation.ROUT_MECH_ADD_PRODUCT
-import com.ray.resqroad.navigation.ROUT_MECH_EDIT_PRODUCT
-import com.ray.resqroad.navigation.ROUT_MECHPRODUCT_LIST
-import com.ray.resqroad.navigation.meditProductRoute
-import com.ray.resqroad.navigation.meditProductRouteclone
+import com.ray.resqroad.viewmodel.ProductViewModel
+import com.ray.resqroad.model.Product
+import com.ray.resqroad.navigation.ROUT_ADD_PRODUCT
+import com.ray.resqroad.navigation.ROUT_EDIT_PRODUCT
+import com.ray.resqroad.navigation.ROUT_PRODUCT_LIST
+import com.ray.resqroad.navigation.ROUT_USERDASHBOARD
+import com.ray.resqroad.navigation.editProductRoute
+import com.ray.resqroad.navigation.editProductRouteclone
 import com.ray.resqroad.ui.theme.mainBlue
+import com.ray.resqroad.ui.theme.trialBlue
 import com.ray.resqroad.ui.theme.whiteBackgr
+import java.io.File
+import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
 
 @RequiresApi(Build.VERSION_CODES.Q)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MProductListScreen(navController: NavController,viewModel: MProductViewModel) {
-    val productList by viewModel.allMechProducts.observeAsState(emptyList())
+fun ProductListScreenClone(navController: NavController, viewModel: ProductViewModel) {
+    val productList by viewModel.allProducts.observeAsState(emptyList())
     var showMenu by remember { mutableStateOf(false) }
     var searchQuery by remember { mutableStateOf("") }
 
     val filteredProducts = productList.filter {
-        it.name.contains(searchQuery, ignoreCase = true)
+        it.carType.contains(searchQuery, ignoreCase = true)
     }
 
     Scaffold(
         topBar = {
             Column {
                 TopAppBar(
-                    title = { Text("Available Mechanics", fontSize = 20.sp,fontWeight = FontWeight.Bold, color = whiteBackgr) },
+                    title = { Text("Products", fontSize = 20.sp,fontWeight = FontWeight.Bold, color = whiteBackgr) },
                     colors = TopAppBarDefaults.mediumTopAppBarColors(mainBlue),
                     actions = {
                         IconButton(onClick = { showMenu = true }) {
@@ -81,14 +85,14 @@ fun MProductListScreen(navController: NavController,viewModel: MProductViewModel
                             DropdownMenuItem(
                                 text = { Text("Product List") },
                                 onClick = {
-                                    navController.navigate(ROUT_MECHPRODUCT_LIST)
+                                    navController.navigate(ROUT_PRODUCT_LIST)
                                     showMenu = false
                                 }
                             )
                             DropdownMenuItem(
                                 text = { Text("Add Product") },
                                 onClick = {
-                                    navController.navigate(ROUT_MECH_ADD_PRODUCT)
+                                    navController.navigate(ROUT_ADD_PRODUCT)
                                     showMenu = false
                                 }
                             )
@@ -122,13 +126,14 @@ fun MProductListScreen(navController: NavController,viewModel: MProductViewModel
                 )
             }
         },
-        bottomBar = { BottomNavigationBar1(navController) }
+        bottomBar = { BottomNavigationBar7(navController) }
     ) { paddingValues ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
                 .padding(16.dp)
+
         ) {
             LazyColumn {
                 items(filteredProducts.size) { index ->
@@ -141,9 +146,9 @@ fun MProductListScreen(navController: NavController,viewModel: MProductViewModel
 
 @RequiresApi(Build.VERSION_CODES.Q)
 @Composable
-fun ProductItem(navController: NavController, MProduct: MProduct, viewModel: MProductViewModel) {
+fun ProductItem(navController: NavController, product: Product, viewModel: ProductViewModel) {
     val painter: Painter = rememberAsyncImagePainter(
-        model = MProduct.imagePath?.let { Uri.parse(it) } ?: Uri.EMPTY
+        model = product.imagePath?.let { Uri.parse(it) } ?: Uri.EMPTY
     )
     val context = LocalContext.current
 
@@ -152,8 +157,8 @@ fun ProductItem(navController: NavController, MProduct: MProduct, viewModel: MPr
             .fillMaxWidth()
             .padding(vertical = 8.dp)
             .clickable {
-                if (MProduct.id != 0) {
-                    navController.navigate(ROUT_MECH_EDIT_PRODUCT)
+                if (product.id != 0) {
+                    navController.navigate(ROUT_EDIT_PRODUCT)
                 }
             },
         shape = RoundedCornerShape(12.dp),
@@ -190,18 +195,21 @@ fun ProductItem(navController: NavController, MProduct: MProduct, viewModel: MPr
                     .padding(start = 12.dp, bottom = 60.dp)
             ) {
                 Text(
-                    text = MProduct.name,
+                    text = product.carType,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White
                 )
+
                 Text(
-                    text = "Service: ${MProduct.service}",
+                    text = product.location,
                     fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
                     color = Color.White
                 )
+
                 Text(
-                    text = "Locaton: ${MProduct.location}",
+                    text = "Phone: ${product.phone}",
                     fontSize = 16.sp,
                     color = Color.White
                 )
@@ -221,8 +229,8 @@ fun ProductItem(navController: NavController, MProduct: MProduct, viewModel: MPr
                     OutlinedButton(
                         onClick = {
                             val smsIntent = Intent(Intent.ACTION_SENDTO)
-                            smsIntent.data = "smsto:${MProduct.phone}".toUri()
-                            smsIntent.putExtra("sms_body", "Hello")
+                            smsIntent.data = "smsto:${product.phone}".toUri()
+                            smsIntent.putExtra("sms_body", "Hello. What seems to be the problem? ")
                             context.startActivity(smsIntent)
                         },
                         shape = RoundedCornerShape(8.dp),
@@ -230,8 +238,8 @@ fun ProductItem(navController: NavController, MProduct: MProduct, viewModel: MPr
                         Row {
                             Icon(
                                 imageVector = Icons.Default.Send,
-                                contentDescription = "Message Seller",
-                                tint = whiteBackgr
+                                tint = Color.White,
+                                contentDescription = "Message"
                             )
                             Spacer(modifier = Modifier.width(3.dp))
                             Text(text = "Message", color = whiteBackgr)
@@ -241,37 +249,25 @@ fun ProductItem(navController: NavController, MProduct: MProduct, viewModel: MPr
                     // Edit Product
                     IconButton(
                         onClick = {
-                            navController.navigate(meditProductRoute(MProduct.id))
+                            navController.navigate(editProductRouteclone(product.id))
                         }
                     ) {
                         Icon(
-                            imageVector = Icons.Default.Edit,
+                            imageVector = Icons.Default.MoreVert,
                             contentDescription = "Edit",
                             tint = Color.White
                         )
                     }
 
-                    // Delete Product
-                    IconButton(
-                        onClick = { viewModel.deleteMechProduct(MProduct) }
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Delete,
-                            contentDescription = "Delete",
-                            tint = Color.White
-                        )
-                    }
+
 
                     // Download PDF
                     IconButton(
-                        onClick = { generateProductPDF(context, MProduct) }
+                        onClick = { generateProductPDF(context, product) }
                     ) {
                         Icon(
                             painter = painterResource(R.drawable.pdfdownload),
                             contentDescription = "",
-                            tint = Color.White
-
-
                         )
                     }
                 }
@@ -281,7 +277,7 @@ fun ProductItem(navController: NavController, MProduct: MProduct, viewModel: MPr
 }
 
 @RequiresApi(Build.VERSION_CODES.Q)
-fun generateProductPDF(context: Context, MProduct: MProduct) {
+fun generateProductPDF(context: Context, product: Product) {
     val pdfDocument = PdfDocument()
     val pageInfo = PdfDocument.PageInfo.Builder(300, 500, 1).create()
     val page = pdfDocument.startPage(pageInfo)
@@ -289,7 +285,7 @@ fun generateProductPDF(context: Context, MProduct: MProduct) {
     val paint = android.graphics.Paint()
 
     val bitmap: Bitmap? = try {
-        MProduct.imagePath?.let {
+        product.imagePath?.let {
             val uri = Uri.parse(it)
             context.contentResolver.openInputStream(uri)?.use { inputStream ->
                 BitmapFactory.decodeStream(inputStream)
@@ -311,13 +307,14 @@ fun generateProductPDF(context: Context, MProduct: MProduct) {
 
     paint.textSize = 12f
     paint.isFakeBoldText = false
-    canvas.drawText("Name: ${MProduct.name}", 50f, 230f, paint)
-    canvas.drawText("Phone: ${MProduct.phone}", 50f, 270f, paint)
+    canvas.drawText("Car Type: ${product.carType}", 50f, 230f, paint)
+    canvas.drawText("Number Plate: ${product.numberPlate}", 50f, 250f, paint)
+    canvas.drawText("Phone: ${product.phone}", 50f, 270f, paint)
 
     pdfDocument.finishPage(page)
 
     // Save PDF using MediaStore (Scoped Storage)
-    val fileName = "${MProduct.name}_Details.pdf"
+    val fileName = "${product.carType}_Details.pdf"
     val contentValues = ContentValues().apply {
         put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
         put(MediaStore.MediaColumns.MIME_TYPE, "application/pdf")
@@ -348,21 +345,24 @@ fun generateProductPDF(context: Context, MProduct: MProduct) {
 
 // Bottom Navigation Bar Component
 @Composable
-fun BottomNavigationBar1(navController: NavController) {
+fun BottomNavigationBar7(navController: NavController) {
     NavigationBar(
         containerColor = whiteBackgr
+
     ) {
         NavigationBarItem(
             selected = false,
-            onClick = { navController.navigate(ROUT_MECHANICDASHBOARD) },
-            icon = { Icon(Icons.Default.Home, contentDescription = "Product List") },
+            onClick = { navController.navigate(ROUT_USERDASHBOARD) },
+            icon = { Icon(Icons.Default.Home, contentDescription = "") },
             label = { Text("Home") }
         )
+
         NavigationBarItem(
             selected = false,
-            onClick = { navController.navigate(ROUT_HOME) },
-            icon = { Icon(Icons.Default.DateRange, contentDescription = "Add Product") },
+            onClick = { navController.navigate(ROUT_PRODUCT_LIST) },
+            icon = { Icon(Icons.Default.DateRange, contentDescription = "") },
             label = { Text("History") }
         )
+
     }
 }

@@ -17,7 +17,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
@@ -69,11 +71,11 @@ fun ProductListScreen(navController: NavController, viewModel: ProductViewModel)
         topBar = {
             Column {
                 TopAppBar(
-                    title = { Text("Products", fontSize = 20.sp) },
+                    title = { Text("Products", fontSize = 20.sp,fontWeight = FontWeight.Bold, color = whiteBackgr) },
                     colors = TopAppBarDefaults.mediumTopAppBarColors(mainBlue),
                     actions = {
                         IconButton(onClick = { showMenu = true }) {
-                            Icon(imageVector = Icons.Default.MoreVert, contentDescription = "Menu")
+                            Icon(imageVector = Icons.Default.MoreVert, contentDescription = "Menu", tint = whiteBackgr)
                         }
                         DropdownMenu(
                             expanded = showMenu,
@@ -130,6 +132,7 @@ fun ProductListScreen(navController: NavController, viewModel: ProductViewModel)
                 .fillMaxSize()
                 .padding(paddingValues)
                 .padding(16.dp)
+
         ) {
             LazyColumn {
                 items(filteredProducts.size) { index ->
@@ -196,6 +199,14 @@ fun ProductItem(navController: NavController, product: Product, viewModel: Produ
                     fontWeight = FontWeight.Bold,
                     color = Color.White
                 )
+
+                Text(
+                    text = product.location,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White
+                )
+
                 Text(
                     text = "Phone: ${product.phone}",
                     fontSize = 16.sp,
@@ -227,10 +238,10 @@ fun ProductItem(navController: NavController, product: Product, viewModel: Produ
                             Icon(
                                 imageVector = Icons.Default.Send,
                                 tint = Color.White,
-                                contentDescription = "Message Mechanic"
+                                contentDescription = "Message"
                             )
                             Spacer(modifier = Modifier.width(3.dp))
-                            Text(text = "Message Client", color = whiteBackgr)
+                            Text(text = "Message", color = whiteBackgr)
                         }
                     }
 
@@ -352,11 +363,5 @@ fun BottomNavigationBar1(navController: NavController) {
             label = { Text("History") }
         )
 
-        NavigationBarItem(
-            selected = false,
-            onClick = { navController.navigate(ROUT_ADD_PRODUCT) },
-            icon = { Icon(Icons.Default.Person, contentDescription = "") },
-            label = { Text("Profile") }
-        )
     }
 }

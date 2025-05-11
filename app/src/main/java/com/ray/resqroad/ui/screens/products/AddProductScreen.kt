@@ -8,7 +8,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
@@ -22,12 +25,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.ray.resqroad.R
 import com.ray.resqroad.navigation.ROUT_ADD_PRODUCT
+import com.ray.resqroad.navigation.ROUT_MECHPRODUCT_LIST
 import com.ray.resqroad.navigation.ROUT_PRODUCT_LIST
 import com.ray.resqroad.navigation.ROUT_USERDASHBOARD
 import com.ray.resqroad.ui.theme.mainBlue
@@ -41,6 +46,7 @@ fun AddProductScreen(navController: NavController, viewModel: ProductViewModel) 
     var carType by remember { mutableStateOf("") }
     var numberPlate by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
+    var location by remember { mutableStateOf("") }
     var phone by remember { mutableStateOf("") }
     var imageUri by remember { mutableStateOf<Uri?>(null) }
 
@@ -68,7 +74,7 @@ fun AddProductScreen(navController: NavController, viewModel: ProductViewModel) 
                 },
                 actions = {
                     IconButton(onClick = { showMenu = true }) {
-                        Icon(imageVector = Icons.Default.MoreVert, contentDescription = "Menu")
+                        Icon(imageVector = Icons.Default.MoreVert, contentDescription = "Menu", tint = whiteBackgr)
                     }
                     DropdownMenu(
                         expanded = showMenu,
@@ -100,7 +106,9 @@ fun AddProductScreen(navController: NavController, viewModel: ProductViewModel) 
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(paddingValues)
-                    .padding(16.dp),
+                    .padding(16.dp)
+                    .verticalScroll(rememberScrollState())
+                ,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 // CarType
@@ -129,6 +137,18 @@ fun AddProductScreen(navController: NavController, viewModel: ProductViewModel) 
                     value = phone,
                     onValueChange = { phone = it },
                     label = { Text("Phone Number") },
+                    modifier = Modifier.fillMaxWidth(),
+                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+
+                    )
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                // Location
+                OutlinedTextField(
+                    value = location,
+                    onValueChange = { location = it },
+                    label = { Text("Location") },
                     modifier = Modifier.fillMaxWidth()
                 )
 
@@ -190,7 +210,7 @@ fun AddProductScreen(navController: NavController, viewModel: ProductViewModel) 
                     Button(
                         onClick =
                             {
-                                imageUri?.toString()?.let { viewModel.addProduct(carType,numberPlate,description,phone,it) }
+                                imageUri?.toString()?.let { viewModel.addProduct(carType,numberPlate,description,location,phone,it) }
                                 navController.navigate(ROUT_PRODUCT_LIST)
                             },
                         modifier = Modifier.fillMaxSize().padding(start = 20.dp, end = 20.dp),

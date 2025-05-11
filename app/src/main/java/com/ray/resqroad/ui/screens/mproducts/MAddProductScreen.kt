@@ -39,7 +39,7 @@ import com.ray.resqroad.viewmodel.MProductViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MAddProductScreen(navController: NavController, viewModel : MProductViewModel) {
+fun MAddProductScreen(navController: NavController, viewModel: MProductViewModel) {
     var name by remember { mutableStateOf("") }
     var service by remember { mutableStateOf("") }
     var location by remember { mutableStateOf("") }

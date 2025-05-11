@@ -20,13 +20,14 @@ class ProductViewModel(app: Application) : AndroidViewModel(app) {
 
     val allProducts: LiveData<List<Product>> = productDao.getAllProducts()
 
-    fun addProduct(carType: String, numberPlate: String, description:String , phone: String, imageUri: String) {
+    fun addProduct(carType: String, numberPlate: String, description:String,location : String, phone: String, imageUri: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val savedImagePath = saveImageToInternalStorage(Uri.parse(imageUri))
             val newProduct = Product(
                 carType = carType,
                numberPlate  = numberPlate,
                 description = description,
+                location = location,
                 phone = phone,
                 imagePath = savedImagePath // use saved image path
             )

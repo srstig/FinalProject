@@ -1,4 +1,4 @@
-package com.ray.resqroad.ui.screens.products
+package com.ray.resqroad.ui.screens.clones
 
 import android.net.Uri
 import android.widget.Toast
@@ -7,9 +7,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.DateRange
@@ -31,30 +29,30 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
-import com.ray.resqroad.navigation.ROUT_ADD_PRODUCT
 import com.ray.resqroad.navigation.ROUT_HOME
-import com.ray.resqroad.navigation.ROUT_PRODUCT_LIST
-import com.ray.resqroad.navigation.ROUT_USERDASHBOARD
+import com.ray.resqroad.navigation.ROUT_MECHANICDASHBOARD
+import com.ray.resqroad.navigation.ROUT_MECH_ADD_PRODUCT
+import com.ray.resqroad.navigation.ROUT_MECHPRODUCT_LIST
 import com.ray.resqroad.ui.theme.mainBlue
 import com.ray.resqroad.ui.theme.whiteBackgr
-import com.ray.resqroad.viewmodel.ProductViewModel
+import com.ray.resqroad.viewmodel.MProductViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EditProductScreen(productId: Int?, navController: NavController, viewModel: ProductViewModel) {
+fun MEditProductScreenClone(productId: Int?, navController: NavController, viewModel: MProductViewModel) {
     val context = LocalContext.current
-    val productList by viewModel.allProducts.observeAsState(emptyList())
+    val mproductList by viewModel.allMechProducts.observeAsState(emptyList())
 
     // Ensure productId is valid
-    val product = remember(productList) { productList.find { it.id == productId } }
+    val mproduct = remember(mproductList) { mproductList.find { it.id == productId } }
 
     // Track state variables only when product is found
-    var carType by remember { mutableStateOf(product?.carType ?: "") }
-    var numberPlate by  remember { mutableStateOf(product?.numberPlate?.toString() ?: "") }
-    var description by  remember { mutableStateOf(product?.description?.toString() ?: "") }
-    var location by  remember { mutableStateOf(product?.location?.toString() ?: "") }
-    var phone by  remember { mutableStateOf(product?.phone?.toString() ?: "") }
-    var imagePath by remember { mutableStateOf(product?.imagePath ?: "") }
+    var name by remember { mutableStateOf(mproduct?.name ?: "") }
+    var service by  remember { mutableStateOf(mproduct?.service?.toString() ?: "") }
+    var location by  remember { mutableStateOf(mproduct?.location?.toString() ?: "") }
+    var phone by  remember { mutableStateOf(mproduct?.phone?.toString() ?: "") }
+    var imagePath by remember { mutableStateOf(mproduct?.imagePath ?: "") }
+
     var showMenu by remember { mutableStateOf(false) }
 
     // Image picker
@@ -68,18 +66,17 @@ fun EditProductScreen(productId: Int?, navController: NavController, viewModel: 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Confirm Request Details",fontSize = 20.sp, fontWeight = FontWeight.Bold, color = whiteBackgr) },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = mainBlue,),
-
+                title = { Text("Confirm Details",fontSize = 20.sp, fontWeight = FontWeight.Bold, color = whiteBackgr) },
+                colors = TopAppBarDefaults.mediumTopAppBarColors(mainBlue),
 
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back", tint = whiteBackgr)
+                        Icon(Icons.Default.ArrowBack, contentDescription = "Back",tint = whiteBackgr)
                     }
                 },
                 actions = {
                     IconButton(onClick = { showMenu = true }) {
-                        Icon(Icons.Default.MoreVert, contentDescription = "Menu", tint = whiteBackgr)
+                        Icon(Icons.Default.MoreVert, contentDescription = "Menu",tint = whiteBackgr)
                     }
                     DropdownMenu(
                         expanded = showMenu,
@@ -88,14 +85,14 @@ fun EditProductScreen(productId: Int?, navController: NavController, viewModel: 
                         DropdownMenuItem(
                             text = { Text("Home") },
                             onClick = {
-                                navController.navigate(ROUT_PRODUCT_LIST)
+                                navController.navigate(ROUT_MECHPRODUCT_LIST)
                                 showMenu = false
                             }
                         )
                         DropdownMenuItem(
                             text = { Text("Add Product") },
                             onClick = {
-                                navController.navigate(ROUT_ADD_PRODUCT)
+                                navController.navigate(ROUT_MECH_ADD_PRODUCT)
                                 showMenu = false
                             }
                         )
@@ -103,48 +100,28 @@ fun EditProductScreen(productId: Int?, navController: NavController, viewModel: 
                 }
             )
         },
-        bottomBar = { BottomNavigationBar2(navController) }
+        bottomBar = { BottomNavigationBar3(navController) }
     ) { paddingValues ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .padding(16.dp)
-                .verticalScroll(rememberScrollState())
-            ,
+                .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            if (product != null) {
+            if (mproduct != null) {
                 OutlinedTextField(
-                    value = carType,
-                    onValueChange = { carType = it },
-                    label = { Text("Car Type") },
+                    value = name,
+                    onValueChange = { name = it },
+                    label = { Text("Full Name") },
                     modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(8.dp))
 
                 OutlinedTextField(
-                    value = numberPlate,
-                    onValueChange = { numberPlate = it },
-                    label = { Text("Number Plate") },
-                    modifier = Modifier.fillMaxWidth()
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-
-
-                OutlinedTextField(
-                    value = phone,
-                    onValueChange = { phone = it },
-                    label = { Text("Phone Number") },
-                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-                    modifier = Modifier.fillMaxWidth()
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-
-                OutlinedTextField(
-                    value = description,
-                    onValueChange = { description = it },
-                    label = { Text("Description") },
+                    value = service,
+                    onValueChange = { service = it },
+                    label = { Text("Service Offered") },
                     modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(8.dp))
@@ -153,6 +130,15 @@ fun EditProductScreen(productId: Int?, navController: NavController, viewModel: 
                     value = location,
                     onValueChange = { location = it },
                     label = { Text("Location") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+
+                OutlinedTextField(
+                    value = phone,
+                    onValueChange = { phone = it },
+                    label = { Text("Phone Number") },
+                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
                     modifier = Modifier.fillMaxWidth()
                 )
                 Spacer(modifier = Modifier.height(8.dp))
@@ -185,14 +171,16 @@ fun EditProductScreen(productId: Int?, navController: NavController, viewModel: 
                     onClick = { imagePicker.launch("image/*") },
                     modifier = Modifier.fillMaxSize().padding(start = 20.dp, end = 20.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
-
-                ) {
+                )
+                {
                     Text("Change Image",
                         fontSize = 20.sp,
                         fontFamily = FontFamily.SansSerif,
-                        color = Color.White)
+                        color = Color.White
+                    )
                 }
                 }
+
 
                 Spacer(modifier = Modifier.height(16.dp))
 
@@ -211,32 +199,31 @@ fun EditProductScreen(productId: Int?, navController: NavController, viewModel: 
                     contentAlignment = Alignment.Center
                 )
                 {
-
-
                 Button(
                     onClick = {
-                        val updatedPhoneNumber = phone.toString()
-                        if (updatedPhoneNumber != null) {
-                            viewModel.updateProduct(product.copy(carType = carType, numberPlate = numberPlate, location = location ,description = description, phone = updatedPhoneNumber, imagePath = imagePath))
+                        val updatedPhone = phone.toString()
+                        if (updatedPhone != null) {
+                            viewModel.updateMechProduct(mproduct.copy(name = name, service = service,location = location ,phone = updatedPhone, imagePath = imagePath))
                             Toast.makeText(context, "Details Submitted!", Toast.LENGTH_SHORT).show()
                             navController.popBackStack()
                         } else {
-                            Toast.makeText(context, "Invalid Phone number entered!", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Invalid Phone Number entered!", Toast.LENGTH_SHORT).show()
                         }
                     },
-                    modifier = Modifier.fillMaxSize().padding(start = 20.dp, end = 20.dp),
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(start = 40.dp, end = 40.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
-
                 ) {
-                    Text("Confirm Details",
+                    Text("Submit Details",
                         fontSize = 20.sp,
                         fontFamily = FontFamily.SansSerif,
-                        color = Color.White)
+                        color = Color.White
+                    )
                 }
                 }
-            }
-            else {
-                Text(text = "Product not found", color = MaterialTheme.colorScheme.error)
+
+            } else {
+                Text(text = "Details not found", color = MaterialTheme.colorScheme.error)
                 Button(onClick = { navController.popBackStack() }) {
                     Text("Go Back")
                 }
@@ -247,13 +234,13 @@ fun EditProductScreen(productId: Int?, navController: NavController, viewModel: 
 
 // Bottom Navigation Bar
 @Composable
-fun BottomNavigationBar2(navController: NavController) {
+fun BottomNavigationBar3(navController: NavController) {
     NavigationBar(
         containerColor = whiteBackgr
     ) {
         NavigationBarItem(
             selected = false,
-            onClick = { navController.navigate(ROUT_USERDASHBOARD) },
+            onClick = { navController.navigate(ROUT_HOME) },
             icon = { Icon(Icons.Default.Home, contentDescription = "") },
             label = { Text("Home") }
         )

@@ -32,7 +32,6 @@ import com.ray.resqroad.R
 import com.ray.resqroad.navigation.ROUT_USERDASHBOARD
 import com.ray.resqroad.navigation.ROUT_HOME
 import com.ray.resqroad.navigation.ROUT_MECHANICDASHBOARD
-import com.ray.resqroad.navigation.ROUT_MECHANICREGISTRATION
 import com.ray.resqroad.navigation.ROUT_REGISTER
 import com.ray.resqroad.ui.theme.fieldborder
 import com.ray.resqroad.ui.theme.mainBlue
@@ -58,7 +57,7 @@ fun LoginScreen(
                 Toast.makeText(context, "Invalid Credentials", Toast.LENGTH_SHORT).show()
             } else {
 
-                if (user.role == "admin") {
+                if (user.role == "mechanic") {
                     navController.navigate(ROUT_MECHANICDASHBOARD) {
                     }
                 } else {
