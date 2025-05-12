@@ -68,30 +68,7 @@ fun MAddProductScreen(navController: NavController, viewModel: MProductViewModel
                         Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Back", tint = whiteBackgr)
                     }
                 },
-                actions = {
-                    IconButton(onClick = { showMenu = true }) {
-                        Icon(imageVector = Icons.Default.MoreVert, contentDescription = "Menu", tint = whiteBackgr)
-                    }
-                    DropdownMenu(
-                        expanded = showMenu,
-                        onDismissRequest = { showMenu = false }
-                    ) {
-                        DropdownMenuItem(
-                            text = { Text("Product List") },
-                            onClick = {
-                                navController.navigate(ROUT_MECHPRODUCT_LIST)
-                                showMenu = false
-                            }
-                        )
-                        DropdownMenuItem(
-                            text = { Text("Add Product") },
-                            onClick = {
-                                navController.navigate(ROUT_MECH_ADD_PRODUCT)
-                                showMenu = false
-                            }
-                        )
-                    }
-                }
+
             )
         },
         bottomBar = {

@@ -79,30 +79,7 @@ fun EditProductScreen(productId: Int?, navController: NavController, viewModel: 
                         Icon(Icons.Default.ArrowBack, contentDescription = "Back", tint = whiteBackgr)
                     }
                 },
-                actions = {
-                    IconButton(onClick = { showMenu = true }) {
-                        Icon(Icons.Default.MoreVert, contentDescription = "Menu", tint = whiteBackgr)
-                    }
-                    DropdownMenu(
-                        expanded = showMenu,
-                        onDismissRequest = { showMenu = false }
-                    ) {
-                        DropdownMenuItem(
-                            text = { Text("Home") },
-                            onClick = {
-                                navController.navigate(ROUT_PRODUCT_LIST)
-                                showMenu = false
-                            }
-                        )
-                        DropdownMenuItem(
-                            text = { Text("Add Product") },
-                            onClick = {
-                                navController.navigate(ROUT_ADD_PRODUCT)
-                                showMenu = false
-                            }
-                        )
-                    }
-                }
+
             )
         },
         bottomBar = { BottomNavigationBar2(navController) }

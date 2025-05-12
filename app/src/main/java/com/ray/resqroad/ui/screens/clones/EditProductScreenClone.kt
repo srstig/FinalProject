@@ -33,7 +33,9 @@ import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.ray.resqroad.navigation.ROUT_ADD_PRODUCT
 import com.ray.resqroad.navigation.ROUT_HOME
+import com.ray.resqroad.navigation.ROUT_MECHANICDASHBOARD
 import com.ray.resqroad.navigation.ROUT_PRODUCT_LIST
+import com.ray.resqroad.navigation.ROUT_PRODUCT_LIST_CLONE
 import com.ray.resqroad.navigation.ROUT_USERDASHBOARD
 import com.ray.resqroad.ui.theme.mainBlue
 import com.ray.resqroad.ui.theme.whiteBackgr
@@ -68,7 +70,7 @@ fun EditProductScreenClone(productId: Int?, navController: NavController, viewMo
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Confirm Request Details",fontSize = 20.sp, fontWeight = FontWeight.Bold, color = whiteBackgr) },
+                title = { Text("Client Details",fontSize = 20.sp, fontWeight = FontWeight.Bold, color = whiteBackgr) },
                 colors = TopAppBarDefaults.topAppBarColors(containerColor = mainBlue,),
 
 
@@ -77,30 +79,7 @@ fun EditProductScreenClone(productId: Int?, navController: NavController, viewMo
                         Icon(Icons.Default.ArrowBack, contentDescription = "Back", tint = whiteBackgr)
                     }
                 },
-                actions = {
-                    IconButton(onClick = { showMenu = true }) {
-                        Icon(Icons.Default.MoreVert, contentDescription = "Menu", tint = whiteBackgr)
-                    }
-                    DropdownMenu(
-                        expanded = showMenu,
-                        onDismissRequest = { showMenu = false }
-                    ) {
-                        DropdownMenuItem(
-                            text = { Text("Home") },
-                            onClick = {
-                                navController.navigate(ROUT_PRODUCT_LIST)
-                                showMenu = false
-                            }
-                        )
-                        DropdownMenuItem(
-                            text = { Text("Add Product") },
-                            onClick = {
-                                navController.navigate(ROUT_ADD_PRODUCT)
-                                showMenu = false
-                            }
-                        )
-                    }
-                }
+
             )
         },
         bottomBar = { BottomNavigationBar9(navController) }
@@ -182,12 +161,12 @@ fun EditProductScreenClone(productId: Int?, navController: NavController, viewMo
                 {
 
                 Button(
-                    onClick = { imagePicker.launch("image/*") },
+                    onClick = { navController.navigate(ROUT_PRODUCT_LIST_CLONE) },
                     modifier = Modifier.fillMaxSize().padding(start = 20.dp, end = 20.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
 
                 ) {
-                    Text("Change Image",
+                    Text("Complete Service",
                         fontSize = 20.sp,
                         fontFamily = FontFamily.SansSerif,
                         color = Color.White)
@@ -197,46 +176,9 @@ fun EditProductScreenClone(productId: Int?, navController: NavController, viewMo
                 Spacer(modifier = Modifier.height(16.dp))
 
 
-                Box(
-                    modifier = Modifier
-                        .padding(start = 20.dp, end = 20.dp)
-                        .fillMaxWidth()
-                        .height(50.dp)
-                        .background(
-                            brush = Brush.horizontalGradient(
-                                colors = listOf(Color(0xFFFF4500), Color(0xFFFFA500))
-                            ),
-                            shape = MaterialTheme.shapes.medium
-                        ),
-                    contentAlignment = Alignment.Center
-                )
-                {
-
-
-                Button(
-                    onClick = {
-                        val updatedPhoneNumber = phone.toString()
-                        if (updatedPhoneNumber != null) {
-                            viewModel.updateProduct(product.copy(carType = carType, numberPlate = numberPlate, location = location ,description = description, phone = updatedPhoneNumber, imagePath = imagePath))
-                            Toast.makeText(context, "Details Submitted!", Toast.LENGTH_SHORT).show()
-                            navController.popBackStack()
-                        } else {
-                            Toast.makeText(context, "Invalid Phone number entered!", Toast.LENGTH_SHORT).show()
-                        }
-                    },
-                    modifier = Modifier.fillMaxSize().padding(start = 20.dp, end = 20.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
-
-                ) {
-                    Text("Confirm Details",
-                        fontSize = 20.sp,
-                        fontFamily = FontFamily.SansSerif,
-                        color = Color.White)
-                }
-                }
             }
             else {
-                Text(text = "Product not found", color = MaterialTheme.colorScheme.error)
+                Text(text = "Client not found", color = MaterialTheme.colorScheme.error)
                 Button(onClick = { navController.popBackStack() }) {
                     Text("Go Back")
                 }

@@ -76,30 +76,7 @@ fun ProductListScreenClone(navController: NavController, viewModel: ProductViewM
                 TopAppBar(
                     title = { Text("Available Requests", fontSize = 20.sp,fontWeight = FontWeight.Bold, color = whiteBackgr) },
                     colors = TopAppBarDefaults.mediumTopAppBarColors(mainBlue),
-                    actions = {
-                        IconButton(onClick = { showMenu = true }) {
-                            Icon(imageVector = Icons.Default.MoreVert, contentDescription = "Menu", tint = whiteBackgr)
-                        }
-                        DropdownMenu(
-                            expanded = showMenu,
-                            onDismissRequest = { showMenu = false }
-                        ) {
-                            DropdownMenuItem(
-                                text = { Text("Product List") },
-                                onClick = {
-                                    navController.navigate(ROUT_PRODUCT_LIST)
-                                    showMenu = false
-                                }
-                            )
-                            DropdownMenuItem(
-                                text = { Text("Add Product") },
-                                onClick = {
-                                    navController.navigate(ROUT_ADD_PRODUCT)
-                                    showMenu = false
-                                }
-                            )
-                        }
-                    }
+
                 )
 
 

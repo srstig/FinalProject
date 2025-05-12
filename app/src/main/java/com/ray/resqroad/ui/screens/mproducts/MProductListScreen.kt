@@ -70,30 +70,7 @@ fun MProductListScreen(navController: NavController,viewModel: MProductViewModel
                 TopAppBar(
                     title = { Text("Application History", fontSize = 20.sp,fontWeight = FontWeight.Bold, color = whiteBackgr) },
                     colors = TopAppBarDefaults.mediumTopAppBarColors(mainBlue),
-                    actions = {
-                        IconButton(onClick = { showMenu = true }) {
-                            Icon(imageVector = Icons.Default.MoreVert, contentDescription = "Menu", tint = whiteBackgr)
-                        }
-                        DropdownMenu(
-                            expanded = showMenu,
-                            onDismissRequest = { showMenu = false }
-                        ) {
-                            DropdownMenuItem(
-                                text = { Text("Product List") },
-                                onClick = {
-                                    navController.navigate(ROUT_MECHPRODUCT_LIST)
-                                    showMenu = false
-                                }
-                            )
-                            DropdownMenuItem(
-                                text = { Text("Add Product") },
-                                onClick = {
-                                    navController.navigate(ROUT_MECH_ADD_PRODUCT)
-                                    showMenu = false
-                                }
-                            )
-                        }
-                    }
+
                 )
 
 
