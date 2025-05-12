@@ -47,8 +47,10 @@ import androidx.navigation.compose.rememberNavController
 import com.ray.resqroad.R
 import com.ray.resqroad.navigation.ROUT_HOME
 import com.ray.resqroad.navigation.ROUT_MECHANICSERVICE
+import com.ray.resqroad.navigation.ROUT_MECHPRODUCT_LIST
 import com.ray.resqroad.navigation.ROUT_MECH_ADD_PRODUCT
 import com.ray.resqroad.navigation.ROUT_PRODUCT_LIST
+import com.ray.resqroad.navigation.ROUT_PRODUCT_LIST_CLONE
 import com.ray.resqroad.navigation.ROUT_REQUEST
 import com.ray.resqroad.ui.theme.mainBlue
 import com.ray.resqroad.ui.theme.newOrange
@@ -142,7 +144,7 @@ fun MechanicDashboardScreen(navController: NavController){
                 modifier = Modifier
                     .width(150.dp)
                     .height(180.dp)
-                    .clickable {navController.navigate(ROUT_PRODUCT_LIST)},
+                    .clickable {navController.navigate(ROUT_PRODUCT_LIST_CLONE)},
                 colors = CardDefaults.cardColors(newOrange)
 
             ){
@@ -217,7 +219,7 @@ fun MechanicDashboardScreen(navController: NavController){
                 modifier = Modifier
                     .width(150.dp)
                     .height(180.dp)
-                    .clickable {navController.navigate(ROUT_HOME)},
+                    .clickable {navController.navigate(ROUT_MECHPRODUCT_LIST)},
                 colors = CardDefaults.cardColors(whiteBackgr)
 
             ){
@@ -227,13 +229,13 @@ fun MechanicDashboardScreen(navController: NavController){
                     verticalArrangement = Arrangement.Center
                 ){
                     Image(
-                        painter = painterResource(R.drawable.location),
+                        painter = painterResource(R.drawable.clipboard),
                         contentDescription = "",
                         modifier = Modifier.size(100.dp)
                     )
                     Spacer(modifier = Modifier.height(10.dp))
 
-                    Text(text = "My Location", fontSize = 25.sp, color = txtCol, modifier = Modifier.padding(start = 5.dp, end = (5.dp)))
+                    Text(text = "Application History", fontSize = 25.sp, color = txtCol, modifier = Modifier.padding(start = 5.dp, end = (5.dp)))
 
                 }
 

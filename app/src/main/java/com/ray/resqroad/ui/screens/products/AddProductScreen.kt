@@ -32,6 +32,7 @@ import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.ray.resqroad.R
 import com.ray.resqroad.navigation.ROUT_ADD_PRODUCT
+import com.ray.resqroad.navigation.ROUT_EDIT_PRODUCT
 import com.ray.resqroad.navigation.ROUT_MECHPRODUCT_LIST
 import com.ray.resqroad.navigation.ROUT_PRODUCT_LIST
 import com.ray.resqroad.navigation.ROUT_USERDASHBOARD

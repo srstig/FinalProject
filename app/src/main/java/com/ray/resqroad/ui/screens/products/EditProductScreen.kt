@@ -33,6 +33,8 @@ import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.ray.resqroad.navigation.ROUT_ADD_PRODUCT
 import com.ray.resqroad.navigation.ROUT_HOME
+import com.ray.resqroad.navigation.ROUT_MECHPRODUCT_LIST
+import com.ray.resqroad.navigation.ROUT_MECHPRODUCT_LIST_CLONE
 import com.ray.resqroad.navigation.ROUT_PRODUCT_LIST
 import com.ray.resqroad.navigation.ROUT_USERDASHBOARD
 import com.ray.resqroad.ui.theme.mainBlue
@@ -219,7 +221,7 @@ fun EditProductScreen(productId: Int?, navController: NavController, viewModel: 
                         if (updatedPhoneNumber != null) {
                             viewModel.updateProduct(product.copy(carType = carType, numberPlate = numberPlate, location = location ,description = description, phone = updatedPhoneNumber, imagePath = imagePath))
                             Toast.makeText(context, "Details Submitted!", Toast.LENGTH_SHORT).show()
-                            navController.popBackStack()
+                            navController.navigate(ROUT_MECHPRODUCT_LIST_CLONE)
                         } else {
                             Toast.makeText(context, "Invalid Phone number entered!", Toast.LENGTH_SHORT).show()
                         }
@@ -259,7 +261,7 @@ fun BottomNavigationBar2(navController: NavController) {
         )
         NavigationBarItem(
             selected = false,
-            onClick = { navController.navigate(ROUT_HOME) },
+            onClick = { navController.navigate(ROUT_PRODUCT_LIST) },
             icon = { Icon(Icons.Default.DateRange, contentDescription = "") },
             label = { Text("History") }
         )

@@ -45,6 +45,8 @@ import com.ray.resqroad.navigation.ROUT_MECHANICDASHBOARD
 import com.ray.resqroad.navigation.ROUT_MECH_ADD_PRODUCT
 import com.ray.resqroad.navigation.ROUT_MECH_EDIT_PRODUCT
 import com.ray.resqroad.navigation.ROUT_MECHPRODUCT_LIST
+import com.ray.resqroad.navigation.ROUT_PRODUCT_LIST
+import com.ray.resqroad.navigation.ROUT_USERDASHBOARD
 import com.ray.resqroad.navigation.meditProductRoute
 import com.ray.resqroad.navigation.meditProductRouteclone
 import com.ray.resqroad.ui.theme.mainBlue
@@ -245,29 +247,19 @@ fun ProductItem(navController: NavController, MProduct: MProduct, viewModel: MPr
                         }
                     ) {
                         Icon(
-                            imageVector = Icons.Default.Edit,
+                            imageVector = Icons.Default.MoreVert,
                             contentDescription = "Edit",
                             tint = Color.White
                         )
                     }
 
-                    // Delete Product
-                    IconButton(
-                        onClick = { viewModel.deleteMechProduct(MProduct) }
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Delete,
-                            contentDescription = "Delete",
-                            tint = Color.White
-                        )
-                    }
 
                     // Download PDF
                     IconButton(
                         onClick = { generateProductPDF(context, MProduct) }
                     ) {
                         Icon(
-                            painter = painterResource(R.drawable.pdfdownload),
+                            painter = painterResource(R.drawable.baseline_file_download_24),
                             contentDescription = "",
                             tint = Color.White
 
@@ -354,13 +346,13 @@ fun BottomNavigationBar6(navController: NavController) {
     ) {
         NavigationBarItem(
             selected = false,
-            onClick = { navController.navigate(ROUT_HOME) },
+            onClick = { navController.navigate(ROUT_USERDASHBOARD) },
             icon = { Icon(Icons.Default.Home, contentDescription = "Product List") },
             label = { Text("Home") }
         )
         NavigationBarItem(
             selected = false,
-            onClick = { navController.navigate(ROUT_HOME) },
+            onClick = { navController.navigate(ROUT_PRODUCT_LIST) },
             icon = { Icon(Icons.Default.DateRange, contentDescription = "Add Product") },
             label = { Text("History") }
         )

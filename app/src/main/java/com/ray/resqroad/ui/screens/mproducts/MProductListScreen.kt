@@ -68,7 +68,7 @@ fun MProductListScreen(navController: NavController,viewModel: MProductViewModel
         topBar = {
             Column {
                 TopAppBar(
-                    title = { Text("Available Mechanics", fontSize = 20.sp,fontWeight = FontWeight.Bold, color = whiteBackgr) },
+                    title = { Text("Application History", fontSize = 20.sp,fontWeight = FontWeight.Bold, color = whiteBackgr) },
                     colors = TopAppBarDefaults.mediumTopAppBarColors(mainBlue),
                     actions = {
                         IconButton(onClick = { showMenu = true }) {
@@ -122,7 +122,7 @@ fun MProductListScreen(navController: NavController,viewModel: MProductViewModel
                 )
             }
         },
-        bottomBar = { BottomNavigationBar1(navController) }
+        bottomBar = { BottomNavigationBar16(navController) }
     ) { paddingValues ->
         Column(
             modifier = Modifier
@@ -267,7 +267,7 @@ fun ProductItem(navController: NavController, MProduct: MProduct, viewModel: MPr
                         onClick = { generateProductPDF(context, MProduct) }
                     ) {
                         Icon(
-                            painter = painterResource(R.drawable.pdfdownload),
+                            painter = painterResource(R.drawable.baseline_file_download_24),
                             contentDescription = "",
                             tint = Color.White
 
@@ -348,7 +348,7 @@ fun generateProductPDF(context: Context, MProduct: MProduct) {
 
 // Bottom Navigation Bar Component
 @Composable
-fun BottomNavigationBar1(navController: NavController) {
+fun BottomNavigationBar16(navController: NavController) {
     NavigationBar(
         containerColor = whiteBackgr
     ) {
@@ -360,7 +360,7 @@ fun BottomNavigationBar1(navController: NavController) {
         )
         NavigationBarItem(
             selected = false,
-            onClick = { navController.navigate(ROUT_HOME) },
+            onClick = { navController.navigate(ROUT_MECHPRODUCT_LIST) },
             icon = { Icon(Icons.Default.DateRange, contentDescription = "Add Product") },
             label = { Text("History") }
         )

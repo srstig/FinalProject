@@ -7,6 +7,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -33,6 +34,8 @@ import com.ray.resqroad.navigation.ROUT_HOME
 import com.ray.resqroad.navigation.ROUT_MECHANICDASHBOARD
 import com.ray.resqroad.navigation.ROUT_MECH_ADD_PRODUCT
 import com.ray.resqroad.navigation.ROUT_MECHPRODUCT_LIST
+import com.ray.resqroad.navigation.ROUT_PRODUCT_LIST
+import com.ray.resqroad.navigation.ROUT_USERDASHBOARD
 import com.ray.resqroad.ui.theme.mainBlue
 import com.ray.resqroad.ui.theme.whiteBackgr
 import com.ray.resqroad.viewmodel.MProductViewModel
@@ -42,6 +45,7 @@ import com.ray.resqroad.viewmodel.MProductViewModel
 fun MEditProductScreenClone(productId: Int?, navController: NavController, viewModel: MProductViewModel) {
     val context = LocalContext.current
     val mproductList by viewModel.allMechProducts.observeAsState(emptyList())
+
 
     // Ensure productId is valid
     val mproduct = remember(mproductList) { mproductList.find { it.id == productId } }
@@ -66,7 +70,7 @@ fun MEditProductScreenClone(productId: Int?, navController: NavController, viewM
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Confirm Details",fontSize = 20.sp, fontWeight = FontWeight.Bold, color = whiteBackgr) },
+                title = { Text("Mechanic Details",fontSize = 20.sp, fontWeight = FontWeight.Bold, color = whiteBackgr) },
                 colors = TopAppBarDefaults.mediumTopAppBarColors(mainBlue),
 
                 navigationIcon = {
@@ -152,6 +156,8 @@ fun MEditProductScreenClone(productId: Int?, navController: NavController, viewM
                         .padding(8.dp)
                 )
 
+
+                //MPESA Button
                 Box(
                     modifier = Modifier
                         .padding(start = 20.dp, end = 20.dp)
@@ -168,21 +174,27 @@ fun MEditProductScreenClone(productId: Int?, navController: NavController, viewM
                 {
 
                 Button(
-                    onClick = { imagePicker.launch("image/*") },
+                    onClick = {
+                        val simToolKitLaunchIntent =
+                            context.packageManager.getLaunchIntentForPackage("com.android.stk")
+                        simToolKitLaunchIntent?.let { context.startActivity(it) }
+
+
+                    },
+                    shape = RoundedCornerShape(10.dp),
                     modifier = Modifier.fillMaxSize().padding(start = 20.dp, end = 20.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
-                )
-                {
-                    Text("Change Image",
+                ) {
+                    Text(text = "Pay Mechanic",
                         fontSize = 20.sp,
                         fontFamily = FontFamily.SansSerif,
-                        color = Color.White
-                    )
+                        color = Color.White)
+
                 }
                 }
-
-
                 Spacer(modifier = Modifier.height(16.dp))
+
+
 
 
                 Box(
@@ -201,20 +213,13 @@ fun MEditProductScreenClone(productId: Int?, navController: NavController, viewM
                 {
                 Button(
                     onClick = {
-                        val updatedPhone = phone.toString()
-                        if (updatedPhone != null) {
-                            viewModel.updateMechProduct(mproduct.copy(name = name, service = service,location = location ,phone = updatedPhone, imagePath = imagePath))
-                            Toast.makeText(context, "Details Submitted!", Toast.LENGTH_SHORT).show()
-                            navController.popBackStack()
-                        } else {
-                            Toast.makeText(context, "Invalid Phone Number entered!", Toast.LENGTH_SHORT).show()
-                        }
-                    },
+                   navController.navigate(ROUT_USERDASHBOARD)
+                              },
                     modifier = Modifier.fillMaxWidth()
                         .padding(start = 40.dp, end = 40.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
                 ) {
-                    Text("Submit Details",
+                    Text("Complete Service",
                         fontSize = 20.sp,
                         fontFamily = FontFamily.SansSerif,
                         color = Color.White
@@ -240,13 +245,13 @@ fun BottomNavigationBar3(navController: NavController) {
     ) {
         NavigationBarItem(
             selected = false,
-            onClick = { navController.navigate(ROUT_HOME) },
+            onClick = { navController.navigate(ROUT_USERDASHBOARD) },
             icon = { Icon(Icons.Default.Home, contentDescription = "") },
             label = { Text("Home") }
         )
         NavigationBarItem(
             selected = false,
-            onClick = { navController.navigate(ROUT_HOME) },
+            onClick = { navController.navigate(ROUT_PRODUCT_LIST) },
             icon = { Icon(Icons.Default.DateRange, contentDescription = "") },
             label = { Text("History") }
         )

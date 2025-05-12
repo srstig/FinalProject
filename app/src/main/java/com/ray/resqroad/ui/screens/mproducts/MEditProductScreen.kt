@@ -33,6 +33,8 @@ import com.ray.resqroad.navigation.ROUT_HOME
 import com.ray.resqroad.navigation.ROUT_MECHANICDASHBOARD
 import com.ray.resqroad.navigation.ROUT_MECH_ADD_PRODUCT
 import com.ray.resqroad.navigation.ROUT_MECHPRODUCT_LIST
+import com.ray.resqroad.navigation.ROUT_PRODUCT_LIST
+import com.ray.resqroad.navigation.ROUT_PRODUCT_LIST_CLONE
 import com.ray.resqroad.ui.theme.mainBlue
 import com.ray.resqroad.ui.theme.whiteBackgr
 import com.ray.resqroad.viewmodel.MProductViewModel
@@ -205,7 +207,7 @@ fun MEditProductScreen(productId: Int?, navController: NavController, viewModel:
                         if (updatedPhone != null) {
                             viewModel.updateMechProduct(mproduct.copy(name = name, service = service,location = location ,phone = updatedPhone, imagePath = imagePath))
                             Toast.makeText(context, "Details Submitted!", Toast.LENGTH_SHORT).show()
-                            navController.popBackStack()
+                            navController.navigate(ROUT_PRODUCT_LIST_CLONE)
                         } else {
                             Toast.makeText(context, "Invalid Phone Number entered!", Toast.LENGTH_SHORT).show()
                         }

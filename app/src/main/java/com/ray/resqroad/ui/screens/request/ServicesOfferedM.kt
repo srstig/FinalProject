@@ -77,7 +77,9 @@ import com.ray.resqroad.ui.theme.whiteBackgr
 import com.ray.resqroad.model.ServiceCard
 import com.ray.resqroad.navigation.ROUT_ADD_PRODUCT
 import com.ray.resqroad.navigation.ROUT_MECHANICDASHBOARD
+import com.ray.resqroad.navigation.ROUT_MECHPRODUCT_LIST
 import com.ray.resqroad.navigation.ROUT_PRODUCT_LIST
+import com.ray.resqroad.navigation.ROUT_PRODUCT_LIST_CLONE
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -134,7 +136,7 @@ fun ServiceScreen(navController: NavController){
                     label = { Text("History") },
                     selected = selectedIndex == 2,
                     onClick = { selectedIndex = 2
-                        navController.navigate(ROUT_HOME)
+                        navController.navigate(ROUT_MECHPRODUCT_LIST)
                     }
                 )
 
@@ -224,7 +226,7 @@ fun ServiceScreen(navController: NavController){
                         Button(
                             onClick = {
 
-                                navController.navigate(ROUT_PRODUCT_LIST)
+                                navController.navigate(ROUT_PRODUCT_LIST_CLONE)
 
                             },
 

@@ -44,6 +44,8 @@ import com.ray.resqroad.viewmodel.ProductViewModel
 import com.ray.resqroad.model.Product
 import com.ray.resqroad.navigation.ROUT_ADD_PRODUCT
 import com.ray.resqroad.navigation.ROUT_EDIT_PRODUCT
+import com.ray.resqroad.navigation.ROUT_MECHANICDASHBOARD
+import com.ray.resqroad.navigation.ROUT_MECHPRODUCT_LIST
 import com.ray.resqroad.navigation.ROUT_PRODUCT_LIST
 import com.ray.resqroad.navigation.ROUT_USERDASHBOARD
 import com.ray.resqroad.navigation.editProductRoute
@@ -72,7 +74,7 @@ fun ProductListScreenClone(navController: NavController, viewModel: ProductViewM
         topBar = {
             Column {
                 TopAppBar(
-                    title = { Text("Products", fontSize = 20.sp,fontWeight = FontWeight.Bold, color = whiteBackgr) },
+                    title = { Text("Available Requests", fontSize = 20.sp,fontWeight = FontWeight.Bold, color = whiteBackgr) },
                     colors = TopAppBarDefaults.mediumTopAppBarColors(mainBlue),
                     actions = {
                         IconButton(onClick = { showMenu = true }) {
@@ -266,8 +268,9 @@ fun ProductItem(navController: NavController, product: Product, viewModel: Produ
                         onClick = { generateProductPDF(context, product) }
                     ) {
                         Icon(
-                            painter = painterResource(R.drawable.pdfdownload),
+                            painter = painterResource(R.drawable.baseline_file_download_24),
                             contentDescription = "",
+                            tint = Color.White
                         )
                     }
                 }
@@ -352,14 +355,14 @@ fun BottomNavigationBar7(navController: NavController) {
     ) {
         NavigationBarItem(
             selected = false,
-            onClick = { navController.navigate(ROUT_USERDASHBOARD) },
+            onClick = { navController.navigate(ROUT_MECHANICDASHBOARD) },
             icon = { Icon(Icons.Default.Home, contentDescription = "") },
             label = { Text("Home") }
         )
 
         NavigationBarItem(
             selected = false,
-            onClick = { navController.navigate(ROUT_PRODUCT_LIST) },
+            onClick = { navController.navigate(ROUT_MECHPRODUCT_LIST) },
             icon = { Icon(Icons.Default.DateRange, contentDescription = "") },
             label = { Text("History") }
         )

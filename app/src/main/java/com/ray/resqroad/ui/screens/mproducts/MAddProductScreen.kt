@@ -95,7 +95,7 @@ fun MAddProductScreen(navController: NavController, viewModel: MProductViewModel
             )
         },
         bottomBar = {
-            BottomNavigationBar(navController)
+            BottomNavigationBar20(navController)
         },
         content = { paddingValues ->
             Column(
@@ -199,7 +199,7 @@ fun MAddProductScreen(navController: NavController, viewModel: MProductViewModel
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
 
                 ) {
-                    Text("Apply",
+                    Text("Get Listed",
                         fontSize = 20.sp,
                         fontFamily = FontFamily.SansSerif,
                         color = Color.White
@@ -216,7 +216,7 @@ fun MAddProductScreen(navController: NavController, viewModel: MProductViewModel
 
 // Bottom Navigation Bar Component
 @Composable
-fun BottomNavigationBar(navController: NavController) {
+fun BottomNavigationBar20(navController: NavController) {
     NavigationBar(
         containerColor = whiteBackgr,
     ) {
@@ -228,7 +228,7 @@ fun BottomNavigationBar(navController: NavController) {
         )
         NavigationBarItem(
             selected = false,
-            onClick = { navController.navigate(ROUT_HOME) },
+            onClick = { navController.navigate(ROUT_MECHPRODUCT_LIST) },
             icon = { Icon(Icons.Default.DateRange, contentDescription = "") },
             label = { Text("History") }
         )

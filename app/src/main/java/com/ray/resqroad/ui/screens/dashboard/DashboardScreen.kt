@@ -77,7 +77,7 @@ fun UserDashboardScreen(navController: NavController){
             ) {
 
                 TopAppBar(
-                    title = { Text(text = "User Section",fontSize = 20.sp, fontWeight = FontWeight.Bold, color = whiteBackgr) },
+                    title = { Text(text = "User Section", color = Color.White) },
 
                     colors = TopAppBarDefaults.topAppBarColors(containerColor = mainBlue,)
 

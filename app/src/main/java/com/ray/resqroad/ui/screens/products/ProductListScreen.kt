@@ -71,7 +71,7 @@ fun ProductListScreen(navController: NavController, viewModel: ProductViewModel)
         topBar = {
             Column {
                 TopAppBar(
-                    title = { Text("Products", fontSize = 20.sp,fontWeight = FontWeight.Bold, color = whiteBackgr) },
+                    title = { Text("My Requests", fontSize = 20.sp,fontWeight = FontWeight.Bold, color = whiteBackgr) },
                     colors = TopAppBarDefaults.mediumTopAppBarColors(mainBlue),
                     actions = {
                         IconButton(onClick = { showMenu = true }) {
@@ -224,26 +224,7 @@ fun ProductItem(navController: NavController, product: Product, viewModel: Produ
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    // Message Seller
-                    OutlinedButton(
-                        onClick = {
-                            val smsIntent = Intent(Intent.ACTION_SENDTO)
-                            smsIntent.data = "smsto:${product.phone}".toUri()
-                            smsIntent.putExtra("sms_body", "Hello. What seems to be the problem? ")
-                            context.startActivity(smsIntent)
-                        },
-                        shape = RoundedCornerShape(8.dp),
-                    ) {
-                        Row {
-                            Icon(
-                                imageVector = Icons.Default.Send,
-                                tint = Color.White,
-                                contentDescription = "Message"
-                            )
-                            Spacer(modifier = Modifier.width(3.dp))
-                            Text(text = "Message", color = whiteBackgr)
-                        }
-                    }
+
 
                     // Edit Product
                     IconButton(
@@ -252,11 +233,23 @@ fun ProductItem(navController: NavController, product: Product, viewModel: Produ
                         }
                     ) {
                         Icon(
-                            imageVector = Icons.Default.MoreVert,
+                            imageVector = Icons.Default.Edit,
                             contentDescription = "Edit",
                             tint = Color.White
                         )
                     }
+
+                    // Delete Product
+                    IconButton(
+                        onClick = { viewModel.deleteProduct(product) }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Delete,
+                            contentDescription = "Delete",
+                            tint = Color.White
+                        )
+                    }
+
 
 
 
@@ -265,8 +258,9 @@ fun ProductItem(navController: NavController, product: Product, viewModel: Produ
                         onClick = { generateProductPDF(context, product) }
                     ) {
                         Icon(
-                            painter = painterResource(R.drawable.pdfdownload),
+                            painter = painterResource(R.drawable.baseline_file_download_24),
                             contentDescription = "",
+                            tint = Color.White
                         )
                     }
                 }
