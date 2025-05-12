@@ -44,7 +44,7 @@ import com.ray.resqroad.viewmodel.ProductViewModel
 fun AppNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    startDestination: String = ROUT_LOGIN,
+    startDestination: String = ROUT_SPLASH,
     productViewModel: ProductViewModel = viewModel(),
     mproductViewModel: MProductViewModel = viewModel(),
 

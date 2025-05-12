@@ -194,26 +194,7 @@ fun ProductItem(navController: NavController, MProduct: MProduct, viewModel: MPr
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    // Message Seller
-                    OutlinedButton(
-                        onClick = {
-                            val smsIntent = Intent(Intent.ACTION_SENDTO)
-                            smsIntent.data = "smsto:${MProduct.phone}".toUri()
-                            smsIntent.putExtra("sms_body", "Hello")
-                            context.startActivity(smsIntent)
-                        },
-                        shape = RoundedCornerShape(8.dp),
-                    ) {
-                        Row {
-                            Icon(
-                                imageVector = Icons.Default.Send,
-                                contentDescription = "Message Seller",
-                                tint = whiteBackgr
-                            )
-                            Spacer(modifier = Modifier.width(3.dp))
-                            Text(text = "Message", color = whiteBackgr)
-                        }
-                    }
+
 
                     // Edit Product
                     IconButton(

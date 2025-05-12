@@ -208,43 +208,11 @@ fun UserDashboardScreen(navController: NavController){
             horizontalArrangement = Arrangement.Center
 
         ){
-            //Card 1
-            Card (
-                modifier = Modifier
-                    .width(150.dp)
-                    .height(180.dp)
-                    .clickable {navController.navigate(ROUT_HOME)},
-                colors = CardDefaults.cardColors(whiteBackgr)
-
-            ){
-                Column (
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ){
-                    Image(
-                        painter = painterResource(R.drawable.location),
-                        contentDescription = "",
-                        modifier = Modifier.size(100.dp)
-                    )
-                    Spacer(modifier = Modifier.height(10.dp))
-
-                    Text(text = "My Location", fontSize = 25.sp, color = txtCol, modifier = Modifier.padding(start = 5.dp, end = (5.dp)))
-
-                }
-
-            }
-
-            //End of Card 1
-
-            Spacer(modifier = Modifier.width(20.dp))
-
-
-
+           
             //Card 2
             Card (
                 modifier = Modifier
-                    .width(150.dp)
+                    .width(200.dp)
                     .height(180.dp)
                     .clickable {navController.navigate(ROUT_REQUEST)},
                 colors = CardDefaults.cardColors(txtCol)

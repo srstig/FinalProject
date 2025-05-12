@@ -86,6 +86,7 @@ fun MAddProductScreen(navController: NavController, viewModel: MProductViewModel
                 OutlinedTextField(
                     value = name,
                     onValueChange = { name = it },
+                    placeholder = { Text("e.g. John Doe") },
                     label = { Text("Full Name") },
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -96,6 +97,7 @@ fun MAddProductScreen(navController: NavController, viewModel: MProductViewModel
                 OutlinedTextField(
                     value = service,
                     onValueChange = { service = it },
+                    placeholder = { Text("e.g. Battery Jumpstart") },
                     label = { Text("Service Offered") },
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -108,6 +110,7 @@ fun MAddProductScreen(navController: NavController, viewModel: MProductViewModel
                     value = location,
                     onValueChange = { location = it },
                     label = { Text("Location") },
+                    placeholder = { Text("e.g. Westlands, near Naivas") },
                     modifier = Modifier.fillMaxWidth()
                 )
 
@@ -117,6 +120,7 @@ fun MAddProductScreen(navController: NavController, viewModel: MProductViewModel
                 OutlinedTextField(
                     value = phone,
                     onValueChange = { phone = it },
+                    placeholder = { Text("e.g. 0712345678") },
                     label = { Text("Phone Number") },
                     modifier = Modifier.fillMaxWidth(),
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
@@ -124,6 +128,9 @@ fun MAddProductScreen(navController: NavController, viewModel: MProductViewModel
                     )
 
 
+                Spacer(modifier = Modifier.height(16.dp))
+
+               Text(text = "Add Profile Photo", fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
                 Spacer(modifier = Modifier.height(16.dp))
 
                 // Image Picker Box

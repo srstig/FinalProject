@@ -93,6 +93,7 @@ fun AddProductScreen(navController: NavController, viewModel: ProductViewModel) 
                 OutlinedTextField(
                     value = carType,
                     onValueChange = { carType = it },
+                    placeholder = { Text("e.g. Mazda CX-5") },
                     label = { Text("Car Type") },
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -103,6 +104,7 @@ fun AddProductScreen(navController: NavController, viewModel: ProductViewModel) 
                 OutlinedTextField(
                     value = numberPlate,
                     onValueChange = { numberPlate = it },
+                    placeholder = { Text("e.g. KAA 111B") },
                     label = { Text("Number Plate") },
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -115,6 +117,7 @@ fun AddProductScreen(navController: NavController, viewModel: ProductViewModel) 
                     value = phone,
                     onValueChange = { phone = it },
                     label = { Text("Phone Number") },
+                    placeholder = { Text("e.g. 0712345678") },
                     modifier = Modifier.fillMaxWidth(),
                     keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
 
@@ -126,6 +129,7 @@ fun AddProductScreen(navController: NavController, viewModel: ProductViewModel) 
                 OutlinedTextField(
                     value = location,
                     onValueChange = { location = it },
+                    placeholder = { Text("e.g. Westlands,near Naivas") },
                     label = { Text("Location") },
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -137,6 +141,7 @@ fun AddProductScreen(navController: NavController, viewModel: ProductViewModel) 
                 OutlinedTextField(
                     value = description,
                     onValueChange = { description = it },
+                    placeholder = { Text("e.g. Flat Tire") },
                     label = { Text("Description") },
                     modifier = Modifier.fillMaxWidth()
                 )
